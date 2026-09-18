@@ -5,10 +5,10 @@ let nombre = document.getElementById("nombreServicio");
 if (imagenActual && imagenNueva && nombre) {
 
 let imagenes = [
-    "img/construccion.png",
-    "img/tabiqueria.png",
-    "img/ceramica.png",
-    "img/mantenciones.png"
+    "img/Construccion.png",
+    "img/Tabiqueria.png",
+    "img/Ceramica.png",
+    "img/Mantenciones.png"
 ];
 
 let nombres = [
