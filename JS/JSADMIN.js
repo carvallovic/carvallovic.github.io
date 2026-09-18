@@ -101,7 +101,7 @@ function deseleccionarEmpleado() {
 function editarEmpleado() {
     if (empleadoSeleccionado) {
         sessionStorage.setItem('empleadoAEditar', JSON.stringify(empleadoSeleccionado));
-        window.location.href = 'EDITAR_EMPLEADO.HTML';
+        window.location.href = 'editar_empleado.html';
     }
 }
 
