@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerrando Sesión - Construcciones Montero</title>
+    <link rel="stylesheet" href="CSS/estilos_vc.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ebebeb;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .contenedor-logout {
+            border: 1.5px solid #333;
+            background-color: #fff;
+            padding: 40px 60px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .contenedor-logout h2 {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+            color: #000;
+        }
+
+        .contenedor-logout p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor-logout">
+        <h2>Cerrando sesión...</h2>
+        <p>Por favor espere un momento.</p>
+    </div>
+
+    <script>
+        // Redirige al login tras 2 segundos
+        setTimeout(function() {
+            window.location.href = 'login.html';
+        }, 2000);
+    </script>
+
+</body>
+
+</html>

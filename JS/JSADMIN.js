@@ -89,7 +89,6 @@ let productoSeleccionado = null;
 function aplicarPermisosMenu() {
     const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
 
-    // Reglas de permisos por perfil
     const permisos = {
         'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
         'Supervisor':    ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
@@ -100,7 +99,6 @@ function aplicarPermisosMenu() {
 
     const menusPermitidos = permisos[perfil] || permisos['Administrador'];
 
-    // Ocultar/mostrar ítems del menú lateral según perfil
     const itemsMenu = document.querySelectorAll('.menu-grupo a[data-menu]');
     itemsMenu.forEach(item => {
         const idMenu = item.getAttribute('data-menu');
@@ -111,14 +109,19 @@ function aplicarPermisosMenu() {
         }
     });
 
-    // Control de acceso directo por URL a páginas no autorizadas
     const paginaActualArchivo = window.location.pathname.split('/').pop() || 'admin_home.html';
     const mapaPaginaMenu = {
         'admin_home.html': 'dashboard',
         'ordenes.html': 'ordenes',
         'productos.html': 'productos',
+        'nuevo_producto.html': 'productos',
+        'editar_producto.html': 'productos',
         'empleados.html': 'personal',
-        'clientes.html': 'clientes'
+        'nuevo_empleado.html': 'personal',
+        'editar_empleado.html': 'personal',
+        'clientes.html': 'clientes',
+        'nuevo_cliente.html': 'clientes',
+        'editar_cliente.html': 'clientes'
     };
 
     const requerimientoMenu = mapaPaginaMenu[paginaActualArchivo];
@@ -152,6 +155,23 @@ function buscarUsuarioPorCorreo(correo) {
 
     for (const p in clientesPorPagina) {
         const c = clientesPorPagina[p].find(item => item.correo.trim().toLowerCase() === correoLimpio);
+        if (c) return c;
+    }
+
+    return null;
+}
+
+function buscarUsuarioPorNombre(nombre) {
+    if (!nombre) return null;
+    const nombreLimpio = nombre.trim().toLowerCase();
+
+    for (const p in usuariosPorPagina) {
+        const u = usuariosPorPagina[p].find(item => item.nombre.trim().toLowerCase() === nombreLimpio);
+        if (u) return u;
+    }
+
+    for (const p in clientesPorPagina) {
+        const c = clientesPorPagina[p].find(item => item.nombre.trim().toLowerCase() === nombreLimpio);
         if (c) return c;
     }
 
@@ -463,7 +483,7 @@ function editarProducto() {
 }
 
 // ==========================================================================
-// 8. PAGINACIÓN Y EVENTOS DOM
+// 8. PAGINACIÓN
 // ==========================================================================
 function actualizarBotonesPaginacion(pagina) {
     const botones = document.querySelectorAll('.btn-num');
@@ -494,8 +514,111 @@ function cambiarPagina(target) {
     renderizarTabla(paginaActual);
 }
 
+// ==========================================================================
+// 9. LÓGICA Y ESTRUCTURA DE MODALES (PERFIL Y CERRAR SESIÓN)
+// ==========================================================================
+function inyectarModales() {
+    if (document.getElementById('modalPerfil')) return;
+
+    const htmlModales = `
+    <div id="modalPerfil" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span>DATOS DEL PERFIL</span>
+                <span style="cursor: pointer;" onclick="cerrarModal('modalPerfil')">✕</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info-item">
+                    <strong>Nombre:</strong>
+                    <span id="perfilNombre">-</span>
+                </div>
+                <div class="modal-info-item">
+                    <strong>Cargo:</strong>
+                    <span id="perfilCargo">-</span>
+                </div>
+                <div class="modal-info-item">
+                    <strong>Perfil / Rol:</strong>
+                    <span id="perfilRol">-</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancelar" onclick="cerrarModal('modalPerfil')">CANCELAR</button>
+                <button type="button" class="btn-registrar" style="background-color: #bb2d3b; border-color: #bb2d3b;" onclick="abrirConfirmacionLogout()">CERRAR SESIÓN</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalConfirmarLogout" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span>CONFIRMAR ACCIÓN</span>
+            </div>
+            <div class="modal-body">
+                <p style="margin: 10px 0; font-weight: bold; text-align: center;">¿De verdad quieres cerrar sesión?</p>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-cancelar" onclick="cerrarModal('modalConfirmarLogout')">NO</button>
+                <button type="button" class="btn-registrar" onclick="confirmarCerrarSesion()">SÍ</button>
+            </div>
+        </div>
+    </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', htmlModales);
+}
+
+function abrirModalPerfil() {
+    inyectarModales();
+
+    const nombre = sessionStorage.getItem('usuarioLogueado') || 'Gonzalo Morales Ruiz';
+    const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
+    
+    const usuarioInfo = buscarUsuarioPorNombre(nombre);
+    const cargo = usuarioInfo ? usuarioInfo.cargo : (perfil === 'Administrador' ? 'Administrador de Sistema' : perfil);
+
+    const elNombre = document.getElementById('perfilNombre');
+    const elCargo = document.getElementById('perfilCargo');
+    const elRol = document.getElementById('perfilRol');
+
+    if (elNombre) elNombre.innerText = nombre;
+    if (elCargo) elCargo.innerText = cargo;
+    if (elRol) elRol.innerText = perfil;
+
+    const modal = document.getElementById('modalPerfil');
+    if (modal) modal.classList.add('activo');
+}
+
+function cerrarModal(idModal) {
+    const modal = document.getElementById(idModal);
+    if (modal) modal.classList.remove('activo');
+}
+
+function abrirConfirmacionLogout() {
+    cerrarModal('modalPerfil');
+    const modal = document.getElementById('modalConfirmarLogout');
+    if (modal) modal.classList.add('activo');
+}
+
+function confirmarCerrarSesion() {
+    sessionStorage.clear();
+    window.location.href = 'cerrando_sesion.html';
+}
+
+// ==========================================================================
+// 10. INICIALIZACIÓN DE EVENTOS AL Cargar EL DOM
+// ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
     aplicarPermisosMenu();
+    inyectarModales();
+
+    // Enlazar evento click al botón de Perfil en el Sidebar Footer
+    const itemsPerfil = document.querySelectorAll('.sidebar-footer a, a[href="#profile"]');
+    itemsPerfil.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            abrirModalPerfil();
+        });
+    });
 
     if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
@@ -518,15 +641,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (contrasenaInput !== '123456') {
-                alert('Contraseña incorrecta. Recuerde que la contraseña para todos los usuarios es 123456.');
+                alert('Contraseña incorrecta. Intenta Nuevamente.');
                 return;
             }
 
-            // Guardar datos de sesión
             sessionStorage.setItem('usuarioLogueado', usuarioEncontrado.nombre);
             sessionStorage.setItem('perfilLogueado', usuarioEncontrado.perfil);
 
-            // Redireccionar según el perfil
             if (usuarioEncontrado.perfil === 'Usuario') {
                 window.location.href = 'ordenes.html';
             } else {
@@ -679,54 +800,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
-function aplicarPermisosMenu() {
-    const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
-
-    // Reglas de permisos por perfil
-    const permisos = {
-        'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
-        'Supervisor':    ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
-        'Operativo':     ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
-        'Vendedor':      ['dashboard', 'ordenes', 'productos', 'clientes'],
-        'Usuario':       ['ordenes']
-    };
-
-    const menusPermitidos = permisos[perfil] || permisos['Administrador'];
-
-    // Ocultar/mostrar ítems del menú lateral según perfil
-    const itemsMenu = document.querySelectorAll('.menu-grupo a[data-menu]');
-    itemsMenu.forEach(item => {
-        const idMenu = item.getAttribute('data-menu');
-        if (menusPermitidos.includes(idMenu)) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-
-    // Mapeo completo incluyendo páginas de creación y edición
-    const paginaActualArchivo = window.location.pathname.split('/').pop() || 'admin_home.html';
-    const mapaPaginaMenu = {
-        'admin_home.html': 'dashboard',
-        'ordenes.html': 'ordenes',
-        'productos.html': 'productos',
-        'nuevo_producto.html': 'productos',
-        'editar_producto.html': 'productos',
-        'empleados.html': 'personal',
-        'nuevo_empleado.html': 'personal',
-        'editar_empleado.html': 'personal',
-        'clientes.html': 'clientes',
-        'nuevo_cliente.html': 'clientes',
-        'editar_cliente.html': 'clientes'
-    };
-
-    const requerimientoMenu = mapaPaginaMenu[paginaActualArchivo];
-    if (requerimientoMenu && !menusPermitidos.includes(requerimientoMenu)) {
-        if (menusPermitidos.includes('ordenes')) {
-            window.location.href = 'ordenes.html';
-        } else if (menusPermitidos.includes('dashboard')) {
-            window.location.href = 'admin_home.html';
-        }
-    }
-}
