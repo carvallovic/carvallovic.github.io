@@ -1,0 +1,165 @@
+<HTML>
+
+<HEAD>
+<TITLE>Mi cotización - Construcciones Montero</TITLE>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="CSS/estilo.css">
+</HEAD>
+
+<BODY>
+
+<header class="header-pagina">
+
+    <h1>Construcciones Montero</h1>
+
+    <img id="logo" src="img/LOGO.png">
+
+</header>
+
+<nav>
+
+<table>
+    <td><a href="index1.html">Inicio</a></td>
+    <td><a href="nosotros.html">Nosotros</a></td>
+    <td><a href="servicios.html">Servicios</a></td>
+    <td><a href="blog.html">Blog</a></td>
+    <td><a href="contacto.html">Contacto</a></td>
+    <td><a href="carrito.html">Mi Cotización</a></td>
+</table>
+
+</nav>
+
+
+<main>
+
+<section>
+
+<h2>Mi cotización</h2>
+
+<p>
+Aquí puedes revisar los servicios que has seleccionado.
+</p>
+
+
+<div id="listaCotizacion">
+
+</div>
+
+
+<h3>Valor final: Por cotizar</h3>
+
+<p>
+El valor definitivo será determinado de acuerdo con las características
+de tu proyecto.
+</p>
+
+
+<div class="botones-cotizacion">
+
+    <button id="vaciarCotizacion">
+        Vaciar cotización
+    </button>
+
+    <button id="solicitarCotizacion">
+        Solicitar cotización
+    </button>
+
+</div>
+
+
+<div id="formularioCotizacion" style="display: none;">
+
+    <h3>Datos de tu proyecto</h3>
+
+    <p>
+        Completa la siguiente información para que podamos
+        preparar una cotización personalizada.
+    </p>
+
+
+    <form id="formCotizacion">
+
+        <label for="tipoProyecto">Tipo de proyecto:</label>
+
+        <select id="tipoProyecto">
+            <option value="">Selecciona una opción</option>
+            <option value="Construcción">Construcción</option>
+            <option value="Ampliación">Ampliación</option>
+            <option value="Remodelación">Remodelación</option>
+            <option value="Mantención">Mantención</option>
+        </select>
+
+        <p id="errorTipoProyecto"></p>
+
+
+        <label for="metros">Metros cuadrados aproximados:</label>
+
+        <input type="number" id="metros" min="1" step="0.1">
+
+        <p id="errorMetros"></p>
+
+
+        <label for="comuna">Comuna:</label>
+
+        <input type="text" id="comuna" maxlength="100" autocomplete="address-level2">
+
+        <p id="errorComuna"></p>
+
+
+        <label for="descripcionProyecto">Descripción del proyecto:</label>
+
+        <textarea id="descripcionProyecto" maxlength="500"></textarea>
+
+        <p id="errorDescripcionProyecto"></p>
+
+
+        <label for="materiales">Materiales o terminaciones:</label>
+
+        <textarea id="materiales" maxlength="500"></textarea>
+
+        <p id="errorMateriales"></p>
+
+
+        <label for="nombreCotizacion">Nombre:</label>
+
+        <input type="text" id="nombreCotizacion" maxlength="100" autocomplete="name">
+
+        <p id="errorNombreCotizacion"></p>
+
+
+        <label for="correoCotizacion">Correo:</label>
+
+        <input type="text" id="correoCotizacion" maxlength="100" autocomplete="email">
+
+        <p id="errorCorreoCotizacion"></p>
+
+
+        <button type="submit">
+            Enviar solicitud de cotización
+        </button>
+
+        <p id="mensajeCotizacion"></p>
+
+    </form>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<span>Construcciones Montero</span>
+<span>Construcción y mantención en general</span>
+<span>© 2026 Construcciones Montero</span>
+
+</footer>
+
+
+<script src="JS/script.js"></script>
+
+</BODY>
+
+</HTML>

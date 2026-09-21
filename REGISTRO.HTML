@@ -1,0 +1,113 @@
+<HTML>
+
+<HEAD>
+<TITLE>Registro de usuario - Construcciones Montero</TITLE>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="CSS/estilo.css">
+</HEAD>
+
+<BODY>
+
+<header class="header-pagina">
+
+    <h1>Construcciones Montero</h1>
+
+    <img id="logo" src="img/LOGO.png">
+
+</header>
+
+<nav>
+
+<table>
+    <td><a href="index1.html">Inicio</a></td>
+    <td><a href="nosotros.html">Nosotros</a></td>
+    <td><a href="servicios.html">Servicios</a></td>
+    <td><a href="blog.html">Blog</a></td>
+    <td><a href="contacto.html">Contacto</a></td>
+    <td><a href="carrito.html">Mi cotización</a></td>
+</table>
+
+</nav>
+
+<main>
+
+<section>
+
+    <h2>Registro de usuario</h2>
+
+    <p>
+        Crea una cuenta para acceder a las funcionalidades de
+        Construcciones Montero.
+    </p>
+
+    <form id="formRegistro">
+
+        <label for="nombreRegistro">Nombre:</label>
+
+        <input
+            type="text"
+            id="nombreRegistro"
+            maxlength="100"
+            autocomplete="name">
+
+        <p id="errorNombreRegistro"></p>
+
+
+        <label for="correoRegistro">Correo:</label>
+
+        <input
+            type="text"
+            id="correoRegistro"
+            maxlength="100"
+            autocomplete="email">
+
+        <p id="errorCorreoRegistro"></p>
+
+
+        <label for="passwordRegistro">Contraseña:</label>
+
+        <input
+            type="password"
+            id="passwordRegistro"
+            maxlength="50"
+            autocomplete="new-password">
+
+        <p id="errorPasswordRegistro"></p>
+
+
+        <label for="confirmarPassword">Confirmar contraseña:</label>
+
+        <input
+            type="password"
+            id="confirmarPassword"
+            maxlength="50"
+            autocomplete="new-password">
+
+        <p id="errorConfirmarPassword"></p>
+
+
+        <button type="submit">
+            Registrarse
+        </button>
+
+        <p id="mensajeRegistro"></p>
+
+    </form>
+
+</section>
+
+</main>
+
+<footer>
+
+    <span>Construcciones Montero</span>
+    <span>Construcción y mantención en general</span>
+    <span>© 2026 Construcciones Montero</span>
+
+</footer>
+
+<script src="JS/script.js"></script>
+
+</BODY>
+
+</HTML>
