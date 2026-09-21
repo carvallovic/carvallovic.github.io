@@ -1,100 +1,373 @@
-let imagenActual = document.getElementById("imagenActual");
-let imagenNueva = document.getElementById("imagenNueva");
-let nombre = document.getElementById("nombreServicio");
-
-if (imagenActual && imagenNueva && nombre) {
-
 let imagenes = [
-    "img/Construccion.png",
-    "img/Tabiqueria.png",
-    "img/Ceramica.png",
-    "img/Mantenciones.png"
+    "img/construccion.png",
+    "img/tabiqueria.png",
+    "img/ceramica.png",
+    "img/mantenciones.png"
 ];
 
-let nombres = [
+let nombresServicios = [
     "Construcción y ampliaciones",
     "Tabiquería",
     "Instalación de cerámicas",
     "Mantenciones del hogar"
 ];
 
-let indice = 0;
+let posicionImagen = 0;
 
-setInterval(function() {
+let imagenActual = document.getElementById("imagenActual");
+let imagenNueva = document.getElementById("imagenNueva");
+let nombreServicio = document.getElementById("nombreServicio");
 
-    let siguiente = indice + 1;
+if (imagenActual && imagenNueva) {
 
-    if (siguiente == imagenes.length) {
-        siguiente = 0;
-    }
+    imagenActual.src = imagenes[0];
+    nombreServicio.textContent = nombresServicios[0];
 
-    imagenNueva.src = imagenes[siguiente];
+    setInterval(function() {
 
-    imagenNueva.style.transition = "none";
-    imagenNueva.style.transform = "translateX(100%)";
-    imagenNueva.style.opacity = "0";
+        let siguiente = (posicionImagen + 1) % imagenes.length;
 
-    nombre.style.opacity = "0";
-
-    setTimeout(function() {
-
-        imagenActual.style.transition = "transform 1.2s ease, opacity 1.2s ease";
-        imagenNueva.style.transition = "transform 1.2s ease, opacity 1.2s ease";
+        imagenNueva.src = imagenes[siguiente];
+        imagenNueva.style.transform = "translateX(0)";
+        imagenNueva.style.opacity = "1";
 
         imagenActual.style.transform = "translateX(-100%)";
         imagenActual.style.opacity = "0";
 
-        imagenNueva.style.transform = "translateX(0)";
-        imagenNueva.style.opacity = "1";
+        setTimeout(function() {
 
-        nombre.textContent = nombres[siguiente];
-        nombre.style.opacity = "1";
+            imagenActual.src = imagenes[siguiente];
+            imagenActual.style.transform = "translateX(0)";
+            imagenActual.style.opacity = "1";
 
-    }, 50);
+            imagenNueva.style.transform = "translateX(100%)";
+            imagenNueva.style.opacity = "0";
 
-    setTimeout(function() {
+            nombreServicio.textContent = nombresServicios[siguiente];
 
-        imagenActual.src = imagenes[siguiente];
+            posicionImagen = siguiente;
 
-        imagenActual.style.transition = "none";
-        imagenActual.style.transform = "translateX(0)";
-        imagenActual.style.opacity = "1";
+        }, 1000);
 
-        imagenNueva.style.transition = "none";
-        imagenNueva.style.transform = "translateX(100%)";
-        imagenNueva.style.opacity = "0";
-
-        indice = siguiente;
-
-    }, 1300);
-
-}, 4000);
+    }, 4000);
 }
 
-let formulario = document.getElementById("formulario");
 
-if (formulario) {
+let formularioContacto = document.getElementById("formContacto");
 
-    formulario.addEventListener("submit", function(event) {
+if (formularioContacto) {
+
+    let nombre = document.getElementById("nombre");
+    let correo = document.getElementById("correo");
+    let telefono = document.getElementById("telefono");
+    let mensaje = document.getElementById("mensaje");
+
+    let errorNombre = document.getElementById("errorNombre");
+    let errorCorreo = document.getElementById("errorCorreo");
+    let errorTelefono = document.getElementById("errorTelefono");
+    let errorMensaje = document.getElementById("errorMensaje");
+
+    nombre.addEventListener("input", function() {
+
+        if (nombre.value.trim() == "") {
+            errorNombre.textContent = "Debes ingresar tu nombre";
+        } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre.value)) {
+            errorNombre.textContent = "El nombre solo debe contener letras";
+        } else {
+            errorNombre.textContent = "";
+        }
+
+    });
+
+    correo.addEventListener("input", function() {
+
+        if (correo.value.trim() == "") {
+            errorCorreo.textContent = "Debes ingresar tu correo";
+        } else if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo.value)) {
+            errorCorreo.textContent =
+                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
+        } else {
+            errorCorreo.textContent = "";
+        }
+
+    });
+
+    telefono.addEventListener("input", function() {
+
+        if (telefono.value.trim() == "") {
+            errorTelefono.textContent = "Debes ingresar tu teléfono";
+        } else if (!/^(9\s?\d{4}\s?\d{4}|\+569\s?\d{4}\s?\d{4})$/.test(telefono.value)) {
+            errorTelefono.textContent = "Ingresa un teléfono válido";
+        } else {
+            errorTelefono.textContent = "";
+        }
+
+    });
+
+    mensaje.addEventListener("input", function() {
+
+        if (mensaje.value.trim() == "") {
+            errorMensaje.textContent = "Debes ingresar un mensaje";
+        } else {
+            errorMensaje.textContent = "";
+        }
+
+    });
+
+    formularioContacto.addEventListener("submit", function(event) {
 
         event.preventDefault();
 
-        let nombre = document.getElementById("nombre").value.trim();
-        let correo = document.getElementById("correo").value.trim();
-        let telefono = document.getElementById("telefono").value.trim();
-        let mensaje = document.getElementById("mensaje").value.trim();
+        if (nombre.value.trim() == "") {
+            errorNombre.textContent = "Debes ingresar tu nombre";
+            return;
+        }
 
-        let errorNombre = document.getElementById("errorNombre");
-        let errorCorreo = document.getElementById("errorCorreo");
-        let errorTelefono = document.getElementById("errorTelefono");
-        let errorMensaje = document.getElementById("errorMensaje");
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre.value)) {
+            errorNombre.textContent = "El nombre solo debe contener letras";
+            return;
+        }
+
+        if (correo.value.trim() == "") {
+            errorCorreo.textContent = "Debes ingresar tu correo";
+            return;
+        }
+
+        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo.value)) {
+            errorCorreo.textContent =
+                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
+            return;
+        }
+
+        if (telefono.value.trim() == "") {
+            errorTelefono.textContent = "Debes ingresar tu teléfono";
+            return;
+        }
+
+        if (!/^(9\s?\d{4}\s?\d{4}|\+569\s?\d{4}\s?\d{4})$/.test(telefono.value)) {
+            errorTelefono.textContent = "Ingresa un teléfono válido";
+            return;
+        }
+
+        if (mensaje.value.trim() == "") {
+            errorMensaje.textContent = "Debes ingresar un mensaje";
+            return;
+        }
+
+        document.getElementById("mensajeFormulario").textContent =
+            "Mensaje enviado correctamente";
+
+    });
+
+}
+
+
+let formCotizacion = document.getElementById("formCotizacion");
+
+if (formCotizacion) {
+
+    let tipoProyecto = document.getElementById("tipoProyecto");
+    let metros = document.getElementById("metros");
+    let comuna = document.getElementById("comuna");
+    let descripcionProyecto = document.getElementById("descripcionProyecto");
+    let materiales = document.getElementById("materiales");
+    let nombreCotizacion = document.getElementById("nombreCotizacion");
+    let correoCotizacion = document.getElementById("correoCotizacion");
+
+    let errorTipoProyecto = document.getElementById("errorTipoProyecto");
+    let errorMetros = document.getElementById("errorMetros");
+    let errorComuna = document.getElementById("errorComuna");
+    let errorDescripcionProyecto = document.getElementById("errorDescripcionProyecto");
+    let errorMateriales = document.getElementById("errorMateriales");
+    let errorNombreCotizacion = document.getElementById("errorNombreCotizacion");
+    let errorCorreoCotizacion = document.getElementById("errorCorreoCotizacion");
+
+    function validarTipoProyecto() {
+
+        if (tipoProyecto.value == "") {
+            errorTipoProyecto.textContent = "Debes seleccionar un tipo de proyecto";
+            return false;
+        }
+
+        errorTipoProyecto.textContent = "";
+        return true;
+    }
+
+    function validarMetros() {
+
+        if (metros.value == "") {
+            errorMetros.textContent = "Debes ingresar los metros cuadrados";
+            return false;
+        }
+
+        if (Number(metros.value) <= 0) {
+            errorMetros.textContent = "Los metros cuadrados deben ser mayores que 0";
+            return false;
+        }
+
+        errorMetros.textContent = "";
+        return true;
+    }
+
+    function validarComuna() {
+
+        if (comuna.value.trim() == "") {
+            errorComuna.textContent = "Debes ingresar la comuna";
+            return false;
+        }
+
+        errorComuna.textContent = "";
+        return true;
+    }
+
+    function validarDescripcion() {
+
+        if (descripcionProyecto.value.trim() == "") {
+            errorDescripcionProyecto.textContent = "Debes describir tu proyecto";
+            return false;
+        }
+
+        errorDescripcionProyecto.textContent = "";
+        return true;
+    }
+
+    function validarMateriales() {
+
+        if (materiales.value.trim() == "") {
+            errorMateriales.textContent = "Debes indicar materiales o terminaciones";
+            return false;
+        }
+
+        errorMateriales.textContent = "";
+        return true;
+    }
+
+    function validarNombreCotizacion() {
+
+        if (nombreCotizacion.value.trim() == "") {
+            errorNombreCotizacion.textContent = "Debes ingresar tu nombre";
+            return false;
+        }
+
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreCotizacion.value.trim())) {
+            errorNombreCotizacion.textContent = "El nombre solo debe contener letras";
+            return false;
+        }
+
+        errorNombreCotizacion.textContent = "";
+        return true;
+    }
+
+    function validarCorreoCotizacion() {
+
+        if (correoCotizacion.value.trim() == "") {
+            errorCorreoCotizacion.textContent = "Debes ingresar tu correo";
+            return false;
+        }
+
+        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correoCotizacion.value.trim())) {
+            errorCorreoCotizacion.textContent =
+                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
+            return false;
+        }
+
+        errorCorreoCotizacion.textContent = "";
+        return true;
+    }
+
+    tipoProyecto.addEventListener("change", validarTipoProyecto);
+    metros.addEventListener("input", validarMetros);
+    comuna.addEventListener("input", validarComuna);
+    descripcionProyecto.addEventListener("input", validarDescripcion);
+    materiales.addEventListener("input", validarMateriales);
+    nombreCotizacion.addEventListener("input", validarNombreCotizacion);
+    correoCotizacion.addEventListener("input", validarCorreoCotizacion);
+
+    formCotizacion.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let valido = true;
+
+        if (!validarTipoProyecto()) {
+            valido = false;
+        }
+
+        if (!validarMetros()) {
+            valido = false;
+        }
+
+        if (!validarComuna()) {
+            valido = false;
+        }
+
+        if (!validarDescripcion()) {
+            valido = false;
+        }
+
+        if (!validarMateriales()) {
+            valido = false;
+        }
+
+        if (!validarNombreCotizacion()) {
+            valido = false;
+        }
+
+        if (!validarCorreoCotizacion()) {
+            valido = false;
+        }
+
+        if (!valido) {
+            return;
+        }
+
+        let solicitud = {
+            tipoProyecto: tipoProyecto.value,
+            metros: metros.value,
+            comuna: comuna.value.trim(),
+            descripcion: descripcionProyecto.value.trim(),
+            materiales: materiales.value.trim(),
+            nombre: nombreCotizacion.value.trim(),
+            correo: correoCotizacion.value.trim()
+        };
+
+        localStorage.setItem(
+            "solicitudCotizacion",
+            JSON.stringify(solicitud)
+        );
+
+        document.getElementById("mensajeCotizacion").textContent =
+            "Solicitud de cotización enviada correctamente";
+
+    });
+
+}
+
+
+let formRegistro = document.getElementById("formRegistro");
+
+if (formRegistro) {
+
+    formRegistro.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let nombre = document.getElementById("nombreRegistro").value.trim();
+        let correo = document.getElementById("correoRegistro").value.trim();
+        let password = document.getElementById("passwordRegistro").value;
+        let confirmarPassword = document.getElementById("confirmarPassword").value;
+
+        let errorNombre = document.getElementById("errorNombreRegistro");
+        let errorCorreo = document.getElementById("errorCorreoRegistro");
+        let errorPassword = document.getElementById("errorPasswordRegistro");
+        let errorConfirmar = document.getElementById("errorConfirmarPassword");
 
         errorNombre.textContent = "";
         errorCorreo.textContent = "";
-        errorTelefono.textContent = "";
-        errorMensaje.textContent = "";
+        errorPassword.textContent = "";
+        errorConfirmar.textContent = "";
 
-        document.getElementById("mensajeEnviado").textContent = "";
+        document.getElementById("mensajeRegistro").textContent = "";
 
         if (nombre == "") {
             errorNombre.textContent = "Debes ingresar tu nombre";
@@ -111,34 +384,92 @@ if (formulario) {
             return;
         }
 
-        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/.test(correo)) {
+        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo)) {
             errorCorreo.textContent =
                 "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
             return;
         }
 
-        if (telefono == "") {
-            errorTelefono.textContent = "Debes ingresar tu teléfono";
+        if (password == "") {
+            errorPassword.textContent = "Debes ingresar una contraseña";
             return;
         }
 
-        if (!/^(?:\+56\s?9\s?\d{4}\s?\d{4}|9\s?\d{4}\s?\d{4})$/.test(telefono)) {
-            errorTelefono.textContent = "Debes ingresar un teléfono válido";
+        if (password.length < 6) {
+            errorPassword.textContent =
+                "La contraseña debe tener al menos 6 caracteres";
             return;
         }
 
-        if (mensaje == "") {
-            errorMensaje.textContent = "Debes ingresar un mensaje";
+        if (confirmarPassword == "") {
+            errorConfirmar.textContent =
+                "Debes confirmar tu contraseña";
             return;
         }
 
-        document.getElementById("mensajeEnviado").textContent =
-            "Mensaje enviado correctamente";
+        if (password != confirmarPassword) {
+            errorConfirmar.textContent =
+                "Las contraseñas no coinciden";
+            return;
+        }
+
+        document.getElementById("mensajeRegistro").textContent =
+            "Usuario registrado correctamente";
 
     });
+
 }
 
-// Carrito de servicios
+
+let formLogin = document.getElementById("formLogin");
+
+if (formLogin) {
+
+    formLogin.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let correo = document.getElementById("correoLogin").value.trim();
+        let password = document.getElementById("passwordLogin").value;
+
+        let errorCorreo = document.getElementById("errorCorreoLogin");
+        let errorPassword = document.getElementById("errorPasswordLogin");
+
+        errorCorreo.textContent = "";
+        errorPassword.textContent = "";
+
+        document.getElementById("mensajeLogin").textContent = "";
+
+        if (correo == "") {
+            errorCorreo.textContent = "Debes ingresar tu correo";
+            return;
+        }
+
+        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo)) {
+            errorCorreo.textContent =
+                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
+            return;
+        }
+
+        if (password == "") {
+            errorPassword.textContent =
+                "Debes ingresar tu contraseña";
+            return;
+        }
+
+        if (password.length < 6) {
+            errorPassword.textContent =
+                "La contraseña debe tener al menos 6 caracteres";
+            return;
+        }
+
+        document.getElementById("mensajeLogin").textContent =
+            "Inicio de sesión correcto";
+
+    });
+
+}
+
 
 let botonesServicio = document.querySelectorAll(".boton-servicio");
 
@@ -146,7 +477,7 @@ botonesServicio.forEach(function(boton) {
 
     boton.addEventListener("click", function() {
 
-        let servicio = boton.dataset.servicio;
+        let servicio = boton.getAttribute("data-servicio");
 
         let cotizacion = JSON.parse(localStorage.getItem("cotizacion")) || [];
 
@@ -160,78 +491,79 @@ botonesServicio.forEach(function(boton) {
 
 });
 
-// Mostrar servicios en la cotización
 
 let listaCotizacion = document.getElementById("listaCotizacion");
+let vaciarCotizacion = document.getElementById("vaciarCotizacion");
+let solicitarCotizacion = document.getElementById("solicitarCotizacion");
+let formularioCotizacion = document.getElementById("formularioCotizacion");
 
-if (listaCotizacion) {
+function mostrarCotizacion() {
+
+    if (!listaCotizacion) {
+        return;
+    }
 
     let cotizacion = JSON.parse(localStorage.getItem("cotizacion")) || [];
+
+    listaCotizacion.innerHTML = "";
 
     if (cotizacion.length == 0) {
 
         listaCotizacion.innerHTML =
-            "<p>No has seleccionado ningún servicio.</p>";
+            "<p>No has seleccionado servicios.</p>";
 
-    } else {
-
-        for (let i = 0; i < cotizacion.length; i++) {
-
-            let contenedor = document.createElement("div");
-
-            let servicio = document.createElement("span");
-
-            servicio.textContent = "✓ " + cotizacion[i];
-
-            let botonEliminar = document.createElement("button");
-
-            botonEliminar.textContent = "Eliminar";
-
-            botonEliminar.addEventListener("click", function() {
-
-                cotizacion.splice(i, 1);
-
-                localStorage.setItem(
-                    "cotizacion",
-                    JSON.stringify(cotizacion)
-                );
-
-                location.reload();
-
-            });
-
-            contenedor.appendChild(servicio);
-            contenedor.appendChild(botonEliminar);
-
-            listaCotizacion.appendChild(contenedor);
-        }
+        return;
     }
+
+    cotizacion.forEach(function(servicio, indice) {
+
+        let elemento = document.createElement("div");
+
+        elemento.innerHTML =
+            servicio +
+            ' <button onclick="eliminarServicio(' + indice + ')">Eliminar</button>';
+
+        listaCotizacion.appendChild(elemento);
+
+    });
+
 }
 
+function eliminarServicio(indice) {
 
-// Vaciar cotización
+    let cotizacion =
+        JSON.parse(localStorage.getItem("cotizacion")) || [];
 
-let botonVaciar = document.getElementById("vaciarCotizacion");
+    cotizacion.splice(indice, 1);
 
-if (botonVaciar) {
+    localStorage.setItem(
+        "cotizacion",
+        JSON.stringify(cotizacion)
+    );
 
-    botonVaciar.addEventListener("click", function() {
+    mostrarCotizacion();
+
+}
+
+if (listaCotizacion) {
+    mostrarCotizacion();
+}
+
+if (vaciarCotizacion) {
+
+    vaciarCotizacion.addEventListener("click", function() {
 
         localStorage.removeItem("cotizacion");
 
-        location.reload();
+        mostrarCotizacion();
 
     });
+
 }
 
-// Mostrar formulario de solicitud de cotización
+if (solicitarCotizacion) {
 
-let botonSolicitar = document.getElementById("solicitarCotizacion");
-let formularioCotizacion = document.getElementById("formularioCotizacion");
-
-if (botonSolicitar && formularioCotizacion) {
-
-    botonSolicitar.addEventListener("click", function() {
+    solicitarCotizacion.addEventListener("click", function() {
 
         formularioCotizacion.style.display = "block";
 
@@ -239,203 +571,85 @@ if (botonSolicitar && formularioCotizacion) {
 
 }
 
-// Validación del formulario de solicitud de cotización
 
-let formCotizacion = document.getElementById("formCotizacion");
+let parametros = new URLSearchParams(window.location.search);
+let servicioSeleccionado = parametros.get("servicio");
 
-if (formCotizacion) {
+let serviciosDetalle = {
 
-    formCotizacion.addEventListener("submit", function(event) {
+    construccion: {
+        nombre: "Construcción y ampliaciones",
+        imagen: "img/construccion.png",
+        descripcion: "Realizamos proyectos de construcción y ampliación para viviendas, adaptándonos a las necesidades de cada cliente y aprovechando de mejor manera los espacios disponibles.",
+        incluye: "Ampliaciones de viviendas, construcción de nuevos espacios, remodelaciones y adaptación de espacios existentes.",
+        proceso: "Evaluación del proyecto, planificación de los trabajos, ejecución de la obra y revisión de las terminaciones.",
+        precio: "Desde $500.000"
+    },
 
-        event.preventDefault();
+    tabiqueria: {
+        nombre: "Tabiquería",
+        imagen: "img/tabiqueria.png",
+        descripcion: "Realizamos trabajos de tabiquería para dividir, organizar y renovar los espacios interiores del hogar.",
+        incluye: "Instalación de estructuras, división de ambientes y habilitación de nuevos espacios interiores.",
+        proceso: "Evaluación del espacio, definición de la distribución, instalación de la estructura y terminaciones.",
+        precio: "Desde $150.000"
+    },
 
-        let tipoProyecto = document.getElementById("tipoProyecto").value;
-        let metros = document.getElementById("metros").value.trim();
-        let comuna = document.getElementById("comuna").value.trim();
-        let descripcion = document.getElementById("descripcionProyecto").value.trim();
-        let materiales = document.getElementById("materiales").value.trim();
-        let nombre = document.getElementById("nombreCotizacion").value.trim();
-        let correo = document.getElementById("correoCotizacion").value.trim();
+    ceramicas: {
+        nombre: "Instalación de cerámicas",
+        imagen: "img/ceramica.png",
+        descripcion: "Realizamos instalación de cerámicas en pisos y muros para renovar y mejorar distintos espacios del hogar.",
+        incluye: "Preparación de superficies, instalación de cerámicas y terminaciones.",
+        proceso: "Revisión de la superficie, preparación, instalación de las cerámicas y revisión final.",
+        precio: "Desde $120.000"
+    },
 
-        let errorTipoProyecto = document.getElementById("errorTipoProyecto");
-        let errorMetros = document.getElementById("errorMetros");
-        let errorComuna = document.getElementById("errorComuna");
-        let errorDescripcion = document.getElementById("errorDescripcionProyecto");
-        let errorMateriales = document.getElementById("errorMateriales");
-        let errorNombre = document.getElementById("errorNombreCotizacion");
-        let errorCorreo = document.getElementById("errorCorreoCotizacion");
+    mantenciones: {
+        nombre: "Mantenciones del hogar",
+        imagen: "img/mantenciones.png",
+        descripcion: "Realizamos trabajos de mantención y reparación para conservar tu vivienda en buenas condiciones y prevenir problemas mayores.",
+        incluye: "Reparaciones, mantenimiento general y trabajos de conservación de diferentes espacios del hogar.",
+        proceso: "Evaluación del problema, definición del trabajo necesario, ejecución y revisión final.",
+        precio: "Desde $80.000"
+    }
 
-        errorTipoProyecto.textContent = "";
-        errorMetros.textContent = "";
-        errorComuna.textContent = "";
-        errorDescripcion.textContent = "";
-        errorMateriales.textContent = "";
-        errorNombre.textContent = "";
-        errorCorreo.textContent = "";
+};
 
-        document.getElementById("mensajeCotizacion").textContent = "";
+if (servicioSeleccionado && serviciosDetalle[servicioSeleccionado]) {
 
+    let servicio = serviciosDetalle[servicioSeleccionado];
 
-        if (tipoProyecto == "") {
+    document.getElementById("tituloDetalle").textContent =
+        servicio.nombre;
 
-            errorTipoProyecto.textContent =
-                "Debes seleccionar el tipo de proyecto";
+    document.getElementById("imagenDetalle").src =
+        servicio.imagen;
 
-            return;
-        }
+    document.getElementById("descripcionDetalle").textContent =
+        servicio.descripcion;
 
+    document.getElementById("incluyeDetalle").textContent =
+        servicio.incluye;
 
-        if (metros == "") {
+    document.getElementById("procesoDetalle").textContent =
+        servicio.proceso;
 
-            errorMetros.textContent =
-                "Debes ingresar los metros cuadrados aproximados";
+    document.getElementById("precioDetalle").textContent =
+        servicio.precio;
 
-            return;
-        }
+    document.getElementById("botonDetalle").addEventListener("click", function() {
 
+        let cotizacion =
+            JSON.parse(localStorage.getItem("cotizacion")) || [];
 
-        if (Number(metros) <= 0) {
+        cotizacion.push(servicio.nombre);
 
-            errorMetros.textContent =
-                "Los metros cuadrados deben ser mayores que 0";
+        localStorage.setItem(
+            "cotizacion",
+            JSON.stringify(cotizacion)
+        );
 
-            return;
-        }
-
-
-        if (comuna == "") {
-
-            errorComuna.textContent =
-                "Debes ingresar la comuna";
-
-            return;
-        }
-
-
-        if (descripcion == "") {
-
-            errorDescripcion.textContent =
-                "Debes describir el proyecto";
-
-            return;
-        }
-
-
-        if (materiales.length > 500) {
-
-            errorMateriales.textContent =
-                "Los materiales o terminaciones no pueden superar los 500 caracteres";
-
-            return;
-        }
-
-
-        if (nombre == "") {
-
-            errorNombre.textContent =
-                "Debes ingresar tu nombre";
-
-            return;
-        }
-
-
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-
-            errorNombre.textContent =
-                "El nombre solo debe contener letras";
-
-            return;
-        }
-
-
-        if (correo == "") {
-
-            errorCorreo.textContent =
-                "Debes ingresar tu correo";
-
-            return;
-        }
-
-
-        if (!/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/.test(correo)) {
-
-            errorCorreo.textContent =
-                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
-
-            return;
-        }
-
-
-        document.getElementById("mensajeCotizacion").textContent =
-            "Solicitud de cotización enviada correctamente";
-
-    });
-
-}
-
-// Validación en tiempo real del formulario de contacto
-
-let nombreContacto = document.getElementById("nombre");
-let correoContacto = document.getElementById("correo");
-let telefonoContacto = document.getElementById("telefono");
-
-if (nombreContacto && correoContacto && telefonoContacto) {
-
-    nombreContacto.addEventListener("input", function() {
-
-        let nombre = nombreContacto.value.trim();
-        let error = document.getElementById("errorNombre");
-
-        if (nombre != "" && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-
-            error.textContent =
-                "El nombre solo debe contener letras";
-
-        } else {
-
-            error.textContent = "";
-
-        }
-
-    });
-
-
-    correoContacto.addEventListener("input", function() {
-
-        let correo = correoContacto.value.trim();
-        let error = document.getElementById("errorCorreo");
-
-        if (correo != "" &&
-            !/^[^\s@]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/.test(correo)) {
-
-            error.textContent =
-                "El correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com";
-
-        } else {
-
-            error.textContent = "";
-
-        }
-
-    });
-
-
-    telefonoContacto.addEventListener("input", function() {
-
-        let telefono = telefonoContacto.value.trim();
-        let error = document.getElementById("errorTelefono");
-
-        if (telefono != "" &&
-            !/^(?:\+56\s?9\s?\d{4}\s?\d{4}|9\s?\d{4}\s?\d{4})$/.test(telefono)) {
-
-            error.textContent =
-                "Debes ingresar un teléfono válido";
-
-        } else {
-
-            error.textContent = "";
-
-        }
+        alert("Servicio agregado a tu cotización");
 
     });
 
