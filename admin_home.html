@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador - Construcciones Montero</title>
-    
-    <!-- Hoja de estilo original -->
-    <link rel="stylesheet" href="CSS/estilos_vc.css">
+    <title>Dashboard Admin - Construcciones Montero</title>
 
-   
+    <link rel="stylesheet" href="CSS/estilos_vc.css">
 </head>
-<body>
+
+<body onload="renderizarInicioAdmin()">
 
     <div class="layout-admin">
 
         <!-- SIDEBAR IZQUIERDO -->
         <aside class="sidebar">
             <div>
-                <!-- Brand / Logo -->
                 <div class="sidebar-brand">
                     <img src="img/LOGO.png" alt="Logo" id="logo-icon" style="width: 70px; height: 70px; object-fit: contain;">
                     <span>Construcciones Montero</span>
                 </div>
 
-                <!-- Menú Superior -->
                 <nav class="menu-grupo">
-                    <a href="#dashboard" class="menu-item activo">
+                    <a href="admin_home.html" class="menu-item activo">
                         <span>⊞</span> Dashboard
                     </a>
                     <a href="#orders" class="menu-item">
@@ -47,7 +44,6 @@
             </div>
 
             <div>
-                <!-- Menú Configuración -->
                 <nav class="menu-grupo">
                     <a href="#settings" class="menu-item">
                         <span>⚙</span> Ajustes
@@ -60,7 +56,6 @@
                     </a>
                 </nav>
 
-                <!-- Perfil Footer -->
                 <div class="sidebar-footer">
                     <a href="#profile" class="menu-item">
                         <span>👤</span> Perfil
@@ -69,25 +64,69 @@
             </div>
         </aside>
 
-        <!-- ÁREA PRINCIPAL (PANEL DERECHO) -->
+        <!-- ÁREA PRINCIPAL -->
         <main class="contenido-main">
-            
-            <!-- Recuadro Superior -->
-            <section class="panel-top">
-                <div class="panel-top-header">
-                    <h2>¡Hola Administrador!</h2>
-                    <span class="icono-campana" title="Notificaciones">🔔</span>
-                </div>
-            </section>
 
-            <!-- Recuadro Inferior -->
-            <section class="panel-bottom">
-                <!-- Espacio libre para tablas, formularios o contenido futuro -->
-            </section>
+            <div class="header-usuarios">
+                <div class="header-left">
+                    <h2>¡Hola Administrador!</h2>
+                </div>
+                <span class="icono-campana" title="Notificaciones">🔔</span>
+            </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
+
+            <!-- TABLA 1: ÚLTIMOS USUARIOS AGREGADOS O MODIFICADOS -->
+            <div style="margin-bottom: 35px;">
+                <h3 style="margin-bottom: 12px; color: #333;">Últimos usuarios modificados o agregados</h3>
+                <div class="tabla-container">
+                    <table class="tabla-usuarios">
+                        <thead>
+                            <tr>
+                                <th>Nombre <span>⇅</span></th>
+                                <th>Cargo <span>⇅</span></th>
+                                <th>Perfil <span>⇅</span></th>
+                                <th>Estado <span>⇅</span></th>
+                                <th>Fecha Ingreso <span>⇅</span></th>
+                                <th>Fecha Egreso <span>⇅</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaUsuariosInicio">
+                            <!-- Se carga dinámicamente desde JSADMIN.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLA 2: ÚLTIMOS PRODUCTOS Y SERVICIOS AGREGADOS O MODIFICADOS -->
+            <div style="margin-bottom: 35px;">
+                <h3 style="margin-bottom: 12px; color: #333;">Últimos productos modificados o agregados</h3>
+                <div class="tabla-container">
+                    <table class="tabla-usuarios">
+                        <thead>
+                            <tr>
+                                <th>Nombre <span>⇅</span></th>
+                                <th>Precio Desde <span>⇅</span></th>
+                                <th>Precio Hasta <span>⇅</span></th>
+                                <th>Estado <span>⇅</span></th>
+                                <th>Fecha Alta <span>⇅</span></th>
+                                <th>Fecha Modificación <span>⇅</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductosInicio">
+                            <!-- Se carga dinámicamente desde JSADMIN.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
         </main>
 
     </div>
 
+    <!-- Enlace al archivo JS con los datos -->
+    <script src="JS/JSADMIN.js"></script>
+
 </body>
+
 </html>

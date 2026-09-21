@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal - Construcciones Montero</title>
+    <title>Productos y Servicios - Construcciones Montero</title>
     
     <link rel="stylesheet" href="CSS/estilos_vc.css">
-
 </head>
 <body onload="renderizarTabla(1)">
 
@@ -68,15 +67,15 @@
             
             <div class="header-usuarios">
                 <div class="header-left">
-                    <h2>Productos</h2>
-                    <button class="btn-nuevo" onclick="window.location.href='NUEVO_PRODUCTO.HTML'">NUEVO PRODUCTO</button>
+                    <h2>Productos y Servicios</h2>
+                    <button class="btn-nuevo" onclick="window.location.href='nuevo_producto.html'">NUEVO PRODUCTO</button>
                     <button id="btnEditar" class="btn-editar" onclick="editarProducto()">EDITAR PRODUCTO</button>
                 </div>
                 <span class="icono-campana" title="Notificaciones">🔔</span>
             </div>
 
             <div class="filtro-sub">
-                Todo el Personal <span>▼</span>
+                Todos los Servicios <span>▼</span>
             </div>
 
             <div class="tabla-container">
@@ -84,11 +83,11 @@
                     <thead>
                         <tr>
                             <th>Nombre <span>⇅</span></th>
-                            <th>Cargo <span>⇅</span></th>
-                            <th>Perfil <span>⇅</span></th>
+                            <th>Precio Desde <span>⇅</span></th>
+                            <th>Precio Hasta <span>⇅</span></th>
                             <th>Estado <span>⇅</span></th>
-                            <th>Fecha Ingreso <span>⇅</span></th>
-                            <th>Fecha Egreso <span>⇅</span></th>
+                            <th>Fecha Alta <span>⇅</span></th>
+                            <th>Fecha Modificación <span>⇅</span></th>
                         </tr>
                     </thead>
                     <tbody id="tablaCuerpo">
@@ -100,8 +99,6 @@
             <div class="paginacion-bar">
                 <button onclick="cambiarPagina('prev')">&lt;</button>
                 <button class="btn-num active" onclick="cambiarPagina(1)">1</button>
-                <button class="btn-num" onclick="cambiarPagina(2)">2</button>
-                <button class="btn-num" onclick="cambiarPagina(3)">3</button>
                 <button onclick="cambiarPagina('next')">&gt;</button>
             </div>
 
