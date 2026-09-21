@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente - Construcciones Montero</title>
+    
+    <link rel="stylesheet" href="CSS/estilos_vc.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+
+        <!-- SIDEBAR IZQUIERDO -->
+        <aside class="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <img src="img/LOGO.png" alt="Logo" id="logo-icon" style="width: 70px; height: 70px; object-fit: contain;">
+                    <span>Construcciones Montero</span>
+                </div>
+
+                <nav class="menu-grupo">
+                    <a href="admin_home.html" class="menu-item">
+                        <span>⊞</span> Dashboard
+                    </a>
+                    <a href="#orders" class="menu-item">
+                        <span>📋</span> Ordenes
+                    </a>
+                    <a href="productos.html" class="menu-item">
+                        <span>📦</span> Productos
+                    </a>
+                    <a href="#reports" class="menu-item">
+                        <span>📄</span> Reportes
+                    </a>
+                    <a href="empleados.html" class="menu-item">
+                        <span>👤</span> Personal
+                    </a>
+                    <a href="clientes.html" class="menu-item activo">
+                        <span>👥</span> Clientes
+                    </a>
+                </nav>
+            </div>
+
+            <div>
+                <nav class="menu-grupo">
+                    <a href="#settings" class="menu-item">
+                        <span>⚙</span> Ajustes
+                    </a>
+                    <a href="#search" class="menu-item">
+                        <span>🔍</span> Búsqueda
+                    </a>
+                    <a href="#help" class="menu-item">
+                        <span>❓</span> Ayuda
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="#profile" class="menu-item">
+                        <span>👤</span> Perfil
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="contenido-main">
+            
+            <h1 class="titulo-pagina">EDITAR CLIENTE</h1>
+
+            <div class="card-registro">
+                <div class="banner-registro">Edición de Datos de Cliente</div>
+
+                <!-- Mensaje de confirmación -->
+                <div id="mensajeExito" class="alerta-exito">
+                    ✓ ¡Los datos del cliente han sido guardados con éxito!
+                </div>
+
+                <form id="formNuevoCliente">
+                    <div class="form-grupo">
+                        <label for="nombre">NOMBRE COMPLETO / RAZÓN SOCIAL</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label for="cargo">TIPO / OCUPACIÓN</label>
+                            <input type="text" id="cargo" name="cargo" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="perfil">PERFIL / ROL</label>
+                            <select id="perfil" name="perfil" required>
+                                <option value="user" selected>Usuario</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-perfil">
+                        <div class="form-grupo">
+                            <label for="correo">CORREO ELECTRÓNICO</label>
+                            <input type="email" id="correo" name="correo" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="telefono">TELÉFONO DE CONTACTO</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="direccion">DIRECCIÓN</label>
+                        <input type="text" id="direccion" name="direccion" required>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label for="region">REGIÓN</label>
+                            <select id="region" name="region" required>
+                                <option value="">-- Seleccione Región --</option>
+                                <option value="rm">Región Metropolitana</option>
+                                <option value="maule">Región del Maule</option>
+                                <option value="valpo">Región de Valparaíso</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="comuna">COMUNA</label>
+                            <select id="comuna" name="comuna" required>
+                                <option value="">-- Seleccione Comuna --</option>
+                                <option value="santiago">Santiago</option>
+                                <option value="linares">Linares</option>
+                                <option value="talca">Talca</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="fechaNacimiento">FECHA DE NACIMIENTO</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label for="contrasena">NUEVA CONTRASEÑA (OPCIONAL)</label>
+                            <input type="password" id="contrasena" name="contrasena">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="confirmarContrasena">CONFIRMAR NUEVA CONTRASEÑA</label>
+                            <input type="password" id="confirmarContrasena" name="confirmarContrasena">
+                        </div>
+                    </div>
+
+                    <div class="container-btn">
+                        <button type="button" class="btn-cancelar" onclick="window.location.href='clientes.html'">CANCELAR</button>
+                        <button type="submit" class="btn-registrar">GUARDAR CAMBIOS</button>
+                    </div>
+                </form>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- JS principal -->
+    <script src="JS/JSADMIN.js"></script>
+
+</body>
+</html>

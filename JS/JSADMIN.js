@@ -35,7 +35,38 @@ const usuariosPorPagina = {
 };
 
 // ==========================================================================
-// 2. DATOS DE PRODUCTOS Y SERVICIOS
+// 2. DATOS DE CLIENTES (TODOS PERFIL 'USUARIO')
+// ==========================================================================
+const clientesPorPagina = {
+    1: [
+        { nombre: "Gonzalo Morales Ruiz", cargo: "Particular", perfil: "Usuario", nacimiento: "1988-06-15", estado: "Activo", ingreso: "2023-02-10", egreso: "-" },
+        { nombre: "María José Fernández", cargo: "Particular", perfil: "Usuario", nacimiento: "1992-11-03", estado: "Activo", ingreso: "2023-05-18", egreso: "-" },
+        { nombre: "Empresa Constructora Alfa", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1980-01-20", estado: "Activo", ingreso: "2022-09-01", egreso: "-" },
+        { nombre: "Inmobiliaria Del Sur SpA", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1985-04-12", estado: "Activo", ingreso: "2021-11-15", egreso: "-" },
+        { nombre: "Rodrigo Alarcón Silva", cargo: "Particular", perfil: "Usuario", nacimiento: "1995-08-25", estado: "Inactivo", ingreso: "2022-03-10", egreso: "2024-01-05" },
+        { nombre: "Camila Fuentes Lagos", cargo: "Particular", perfil: "Usuario", nacimiento: "1991-03-30", estado: "Activo", ingreso: "2023-10-12", egreso: "-" },
+        { nombre: "Javier Ortiz Bravo", cargo: "Particular", perfil: "Usuario", nacimiento: "1984-12-05", estado: "Activo", ingreso: "2024-01-08", egreso: "-" },
+        { nombre: "Inversiones San Pedro", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1987-07-22", estado: "Activo", ingreso: "2022-06-20", egreso: "-" }
+    ],
+    2: [
+        { nombre: "Francisca Ibáñez M.", cargo: "Particular", perfil: "Usuario", nacimiento: "1993-09-14", estado: "Activo", ingreso: "2023-04-05", egreso: "-" },
+        { nombre: "Diseño y Obras Nahuel", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1982-02-28", estado: "Activo", ingreso: "2021-08-14", egreso: "-" },
+        { nombre: "Hernán Castro Pinto", cargo: "Particular", perfil: "Usuario", nacimiento: "1979-10-10", estado: "Inactivo", ingreso: "2020-05-19", egreso: "2023-08-30" },
+        { nombre: "Paula Venegas Soto", cargo: "Particular", perfil: "Usuario", nacimiento: "1996-01-18", estado: "Activo", ingreso: "2024-02-11", egreso: "-" },
+        { nombre: "Constructora Horizon Ltd", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1983-05-04", estado: "Activo", ingreso: "2022-01-25", egreso: "-" },
+        { nombre: "Felipe Ossa Guzmán", cargo: "Particular", perfil: "Usuario", nacimiento: "1990-07-07", estado: "Activo", ingreso: "2023-08-01", egreso: "-" },
+        { nombre: "Loreto Medina Valdés", cargo: "Particular", perfil: "Usuario", nacimiento: "1988-12-21", estado: "Activo", ingreso: "2023-12-03", egreso: "-" },
+        { nombre: "Tomás Guajardo R.", cargo: "Particular", perfil: "Usuario", nacimiento: "1994-04-09", estado: "Inactivo", ingreso: "2022-10-15", egreso: "2024-02-01" }
+    ],
+    3: [
+        { nombre: "Comercializadora Bicentenario", cargo: "Cliente Corporativo", perfil: "Usuario", nacimiento: "1986-03-17", estado: "Activo", ingreso: "2023-03-22", egreso: "-" },
+        { nombre: "Daniela Navarrete V.", cargo: "Particular", perfil: "Usuario", nacimiento: "1997-06-02", estado: "Activo", ingreso: "2024-03-01", egreso: "-" },
+        { nombre: "Álvaro Tapia Reyes", cargo: "Particular", perfil: "Usuario", nacimiento: "1981-11-11", estado: "Activo", ingreso: "2022-07-19", egreso: "-" }
+    ]
+};
+
+// ==========================================================================
+// 3. DATOS DE PRODUCTOS Y SERVICIOS
 // ==========================================================================
 const productosPorPagina = {
     1: [
@@ -77,35 +108,38 @@ const productosPorPagina = {
 // Variables de estado global
 let paginaActual = 1;
 let empleadoSeleccionado = null;
+let clienteSeleccionado = null;
 let productoSeleccionado = null;
 
 // ==========================================================================
-// 3. RENDERIZAR VISTA DASHBOARD INICIO
+// 4. RENDERIZAR VISTA DASHBOARD INICIO (MUESTRA ÚLTIMOS CLIENTES Y PRODUCTOS)
 // ==========================================================================
 function renderizarInicioAdmin() {
-    renderizarUltimosUsuarios();
+    renderizarUltimosClientes();
     renderizarUltimosProductos();
 }
 
-function renderizarUltimosUsuarios() {
-    const tbody = document.getElementById('tablaUsuariosInicio');
+function renderizarUltimosClientes() {
+    // Busca si existe 'tablaClientesInicio' o en su defecto 'tablaUsuariosInicio'
+    const tbody = document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio');
     if (!tbody) return;
 
-    const lista = usuariosPorPagina[1] || [];
+    const lista = clientesPorPagina[1] || [];
     tbody.innerHTML = '';
 
-    lista.slice(0, 5).forEach(user => {
+    // Muestra los primeros 5 clientes registrados / modificados
+    lista.slice(0, 5).forEach(client => {
         const tr = document.createElement('tr');
-        const claseEstado = user.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo';
+        const claseEstado = client.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo';
         
         tr.innerHTML = `
-            <td>${user.nombre}</td>
-            <td>${user.cargo}</td>
-            <td>${user.perfil}</td>
-            <td>${user.nacimiento}</td>
-            <td><span class="${claseEstado}">${user.estado}</span></td>
-            <td>${user.ingreso}</td>
-            <td>${user.egreso}</td>
+            <td>${client.nombre}</td>
+            <td>${client.cargo}</td>
+            <td>${client.perfil}</td>
+            <td>${client.nacimiento}</td>
+            <td><span class="${claseEstado}">${client.estado}</span></td>
+            <td>${client.ingreso}</td>
+            <td>${client.egreso}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -135,20 +169,27 @@ function renderizarUltimosProductos() {
 }
 
 // ==========================================================================
-// 4. DETECCIÓN Y ROUTING DE PÁGINAS MANTENEDORAS (EMPLEADOS / PRODUCTOS)
+// 5. DETECCIÓN Y ROUTING DE PÁGINAS (PERSONAL / CLIENTES / PRODUCTOS)
 // ==========================================================================
+function esPaginaClientes() {
+    const tituloHeader = document.querySelector('.header-left h2')?.innerText || '';
+    return window.location.pathname.includes('clientes.html') || tituloHeader.includes('Clientes');
+}
+
 function esPaginaProductos() {
     const tituloHeader = document.querySelector('.header-left h2')?.innerText || '';
     return window.location.pathname.includes('productos.html') || tituloHeader.includes('Productos');
 }
 
 function renderizarTabla(pagina) {
-    if (document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
+    if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
         return;
     }
 
-    if (esPaginaProductos()) {
+    if (esPaginaClientes()) {
+        renderizarTablaClientes(pagina);
+    } else if (esPaginaProductos()) {
         renderizarTablaProductos(pagina);
     } else {
         renderizarTablaUsuarios(pagina);
@@ -156,7 +197,7 @@ function renderizarTabla(pagina) {
 }
 
 // ==========================================================================
-// 5. LÓGICA PARA USUARIOS / PERSONAL
+// 6. LÓGICA PARA USUARIOS / PERSONAL
 // ==========================================================================
 function renderizarTablaUsuarios(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
@@ -228,7 +269,79 @@ function editarEmpleado() {
 }
 
 // ==========================================================================
-// 6. LÓGICA PARA PRODUCTOS / SERVICIOS
+// 7. LÓGICA PARA CLIENTES
+// ==========================================================================
+function renderizarTablaClientes(pagina) {
+    const tbody = document.getElementById('tablaCuerpo');
+    if (!tbody) return;
+
+    deseleccionarCliente();
+
+    const lista = clientesPorPagina[pagina] || [];
+    tbody.innerHTML = '';
+
+    lista.forEach(client => {
+        const tr = document.createElement('tr');
+        const claseEstado = client.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo';
+        
+        tr.innerHTML = `
+            <td>${client.nombre}</td>
+            <td>${client.cargo}</td>
+            <td>${client.perfil}</td>
+            <td>${client.nacimiento}</td>
+            <td><span class="${claseEstado}">${client.estado}</span></td>
+            <td>${client.ingreso}</td>
+            <td>${client.egreso}</td>
+        `;
+
+        tr.addEventListener('click', function() {
+            seleccionarFilaCliente(tr, client);
+        });
+
+        tbody.appendChild(tr);
+    });
+
+    actualizarBotonesPaginacion(pagina);
+}
+
+function seleccionarFilaCliente(tr, client) {
+    const btnEditar = document.getElementById('btnEditar');
+    const filas = document.querySelectorAll('#tablaCuerpo tr');
+
+    if (tr.classList.contains('fila-seleccionada')) {
+        deseleccionarCliente();
+        return;
+    }
+
+    filas.forEach(f => f.classList.remove('fila-seleccionada'));
+
+    tr.classList.add('fila-seleccionada');
+    clienteSeleccionado = client;
+
+    if (btnEditar) {
+        btnEditar.style.display = 'inline-block';
+    }
+}
+
+function deseleccionarCliente() {
+    clienteSeleccionado = null;
+    const btnEditar = document.getElementById('btnEditar');
+    if (btnEditar) {
+        btnEditar.style.display = 'none';
+    }
+    const filas = document.querySelectorAll('#tablaCuerpo tr');
+    filas.forEach(f => f.classList.remove('fila-seleccionada'));
+}
+
+function editarCliente() {
+    if (clienteSeleccionado) {
+        sessionStorage.setItem('clienteAEditar', JSON.stringify(clienteSeleccionado));
+        window.location.href = 'editar_cliente.html';
+    }
+}
+
+// ==========================================================================
+// 8. LÓGICA PARA PRODUCTOS / SERVICIOS
 // ==========================================================================
 function renderizarTablaProductos(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
@@ -299,7 +412,7 @@ function editarProducto() {
 }
 
 // ==========================================================================
-// 7. PAGINACIÓN
+// 9. PAGINACIÓN
 // ==========================================================================
 function actualizarBotonesPaginacion(pagina) {
     const botones = document.querySelectorAll('.btn-num');
@@ -312,7 +425,12 @@ function actualizarBotonesPaginacion(pagina) {
 }
 
 function cambiarPagina(target) {
-    const totalPaginas = esPaginaProductos() ? Object.keys(productosPorPagina).length : 3;
+    let totalPaginas = 3;
+    if (esPaginaProductos()) {
+        totalPaginas = Object.keys(productosPorPagina).length;
+    } else if (esPaginaClientes()) {
+        totalPaginas = Object.keys(clientesPorPagina).length;
+    }
 
     if (target === 'prev') {
         if (paginaActual > 1) paginaActual--;
@@ -326,10 +444,10 @@ function cambiarPagina(target) {
 }
 
 // ==========================================================================
-// 8. CONTROL DE FORMULARIOS Y EVENTOS DOM
+// 10. CONTROL DE FORMULARIOS Y EVENTOS DOM
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
+    if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
     }
 
@@ -366,6 +484,56 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         formNuevoUsuario.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const pass1 = document.getElementById('contrasena')?.value;
+            const pass2 = document.getElementById('confirmarContrasena')?.value;
+
+            if (pass1 && pass2 && pass1 !== pass2) {
+                alert('Las contraseñas no coinciden. Por favor, verifíquelas.');
+                return;
+            }
+
+            const mensaje = document.getElementById('mensajeExito');
+            if (mensaje) {
+                mensaje.style.display = 'block';
+                mensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                setTimeout(() => {
+                    mensaje.style.display = 'none';
+                }, 4000);
+            }
+        });
+    }
+
+    // --- FORMULARIO DE CLIENTES (NUEVO / EDITAR) ---
+    const formNuevoCliente = document.getElementById('formNuevoCliente');
+    if (formNuevoCliente) {
+        const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
+
+        if (datosClienteGuardados) {
+            const cliente = JSON.parse(datosClienteGuardados);
+
+            if (document.getElementById('nombre')) document.getElementById('nombre').value = cliente.nombre || '';
+            if (document.getElementById('cargo')) document.getElementById('cargo').value = cliente.cargo || '';
+            if (document.getElementById('fechaNacimiento')) document.getElementById('fechaNacimiento').value = cliente.nacimiento || '';
+            
+            const selectPerfil = document.getElementById('perfil');
+            if (selectPerfil) selectPerfil.value = 'user';
+
+            if (document.getElementById('correo')) {
+                const mailSimulado = cliente.nombre.toLowerCase().replace(/ /g, '.').normalize("NFD").replace(/[\u0300-\u036f]/g, "") + '@gmail.com';
+                document.getElementById('correo').value = mailSimulado;
+            }
+            if (document.getElementById('direccion')) document.getElementById('direccion').value = 'Av. Providencia 456';
+            if (document.getElementById('telefono')) document.getElementById('telefono').value = '+56912345678';
+            if (document.getElementById('region')) document.getElementById('region').value = 'rm';
+            if (document.getElementById('comuna')) document.getElementById('comuna').value = 'santiago';
+
+            sessionStorage.removeItem('clienteAEditar');
+        }
+
+        formNuevoCliente.addEventListener('submit', function (event) {
             event.preventDefault();
 
             const pass1 = document.getElementById('contrasena')?.value;
