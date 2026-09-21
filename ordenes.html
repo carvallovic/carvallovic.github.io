@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes - Construcciones Montero</title>
+    <title>Órdenes - Construcciones Montero</title>
     <link rel="stylesheet" href="CSS/estilos_vc.css">
 </head>
 
-<body onload="renderizarTabla(1)">
+<body>
 
     <div class="layout-admin">
 
@@ -24,7 +24,7 @@
                     <a href="admin_home.html" class="menu-item" data-menu="dashboard">
                         <span>⊞</span> Dashboard
                     </a>
-                    <a href="ordenes.html" class="menu-item" data-menu="ordenes">
+                    <a href="ordenes.html" class="menu-item activo" data-menu="ordenes">
                         <span>📋</span> Ordenes
                     </a>
                     <a href="productos.html" class="menu-item" data-menu="productos">
@@ -36,7 +36,7 @@
                     <a href="empleados.html" class="menu-item" data-menu="personal">
                         <span>👤</span> Personal
                     </a>
-                    <a href="clientes.html" class="menu-item activo" data-menu="clientes">
+                    <a href="clientes.html" class="menu-item" data-menu="clientes">
                         <span>👥</span> Clientes
                     </a>
                 </nav>
@@ -68,43 +68,41 @@
 
             <div class="header-usuarios">
                 <div class="header-left">
-                    <h2>Clientes</h2>
+                    <h2>Órdenes de Trabajo y Servicios</h2>
                 </div>
-                <div class="header-right">
-                    <button class="btn-editar" id="btnEditar" style="display: none;" onclick="editarCliente()">Editar Cliente</button>
-                    <a href="nuevo_cliente.html" class="btn-nuevo">+ Nuevo Cliente</a>
-                    <span class="icono-campana" title="Notificaciones">🔔</span>
-                </div>
+                <span class="icono-campana" title="Notificaciones">🔔</span>
             </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
 
             <div class="tabla-container">
                 <table class="tabla-usuarios">
                     <thead>
                         <tr>
-                            <th>Nombre <span>⇅</span></th>
-                            <th>Tipo Cliente <span>⇅</span></th>
-                            <th>Perfil <span>⇅</span></th>
-                            <th>Correo Electrónico <span>⇅</span></th>
-                            <th>Fecha Nacimiento <span>⇅</span></th>
+                            <th>N° Orden <span>⇅</span></th>
+                            <th>Cliente <span>⇅</span></th>
+                            <th>Servicio <span>⇅</span></th>
+                            <th>Fecha Solicitud <span>⇅</span></th>
                             <th>Estado <span>⇅</span></th>
-                            <th>Fecha Registro <span>⇅</span></th>
-                            <th>Fecha Baja <span>⇅</span></th>
                         </tr>
                     </thead>
-                    <tbody id="tablaCuerpo">
-                        <!-- Se carga dinámicamente desde JSADMIN.js -->
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>Gonzalo Morales Ruiz</td>
+                            <td>Instalación de cerámicas</td>
+                            <td>2026-03-01</td>
+                            <td><span class="estado-activo">En Proceso</span></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>Empresa Constructora Alfa</td>
+                            <td>Construcción y ampliaciones</td>
+                            <td>2026-03-05</td>
+                            <td><span class="estado-activo">Completado</span></td>
+                        </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <div class="paginacion-container">
-                <div class="paginacion">
-                    <button class="btn-pag" onclick="cambiarPagina('prev')">&lt;</button>
-                    <button class="btn-num active" onclick="cambiarPagina(1)">1</button>
-                    <button class="btn-num" onclick="cambiarPagina(2)">2</button>
-                    <button class="btn-num" onclick="cambiarPagina(3)">3</button>
-                    <button class="btn-pag" onclick="cambiarPagina('next')">&gt;</button>
-                </div>
             </div>
 
         </main>

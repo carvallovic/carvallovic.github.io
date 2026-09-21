@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto - Construcciones Montero</title>
-    
     <link rel="stylesheet" href="CSS/estilos_vc.css">
 </head>
+
 <body>
 
     <div class="layout-admin">
@@ -20,22 +21,22 @@
                 </div>
 
                 <nav class="menu-grupo">
-                    <a href="admin_home.html" class="menu-item">
+                    <a href="admin_home.html" class="menu-item" data-menu="dashboard">
                         <span>⊞</span> Dashboard
                     </a>
-                    <a href="#orders" class="menu-item">
+                    <a href="ordenes.html" class="menu-item" data-menu="ordenes">
                         <span>📋</span> Ordenes
                     </a>
-                    <a href="productos.html" class="menu-item activo">
+                    <a href="productos.html" class="menu-item activo" data-menu="productos">
                         <span>📦</span> Productos
                     </a>
-                    <a href="#reports" class="menu-item">
+                    <a href="#reports" class="menu-item" data-menu="reportes">
                         <span>📄</span> Reportes
                     </a>
-                    <a href="empleados.html" class="menu-item">
+                    <a href="empleados.html" class="menu-item" data-menu="personal">
                         <span>👤</span> Personal
                     </a>
-                    <a href="clientes.html" class="menu-item">
+                    <a href="clientes.html" class="menu-item" data-menu="clientes">
                         <span>👥</span> Clientes
                     </a>
                 </nav>
@@ -64,64 +65,56 @@
 
         <!-- ÁREA PRINCIPAL -->
         <main class="contenido-main">
-            
-            <h1 class="titulo-pagina">EDITAR PRODUCTO / SERVICIO</h1>
+
+            <h2 class="titulo-pagina">EDITAR PRODUCTO / SERVICIO</h2>
 
             <div class="card-registro">
                 <div class="banner-registro">Edición de datos de Producto / Servicio</div>
 
-                <!-- Mensaje de confirmación -->
+                <!-- Mensaje de éxito -->
                 <div id="mensajeExito" class="alerta-exito">
-                    ✓ ¡Los cambios han sido guardados con éxito!
+                    ✔ Datos del producto actualizados correctamente.
                 </div>
 
                 <form id="formEditarProducto">
                     <div class="form-grupo">
-                        <label for="nombre">NOMBRE DEL SERVICIO O PRODUCTO</label>
-                        <input type="text" id="nombre" name="nombre" required>
+                        <label for="nombre">NOMBRE DEL SERVICIO / PRODUCTO *</label>
+                        <input type="text" id="nombre" required>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
-                            <label for="precioDesde">PRECIO DESDE ($)</label>
-                            <input type="text" id="precioDesde" name="precioDesde" required>
+                            <label for="precioDesde">PRECIO DESDE *</label>
+                            <input type="text" id="precioDesde" required>
                         </div>
-
                         <div class="form-grupo">
-                            <label for="precioHasta">PRECIO HASTA ($)</label>
-                            <input type="text" id="precioHasta" name="precioHasta" required>
+                            <label for="precioHasta">PRECIO HASTA *</label>
+                            <input type="text" id="precioHasta" required>
                         </div>
                     </div>
 
-                    <div class="grid-perfil">
+                    <div class="grid-selects">
                         <div class="form-grupo">
-                            <label for="estado">ESTADO</label>
-                            <select id="estado" name="estado" required>
-                                <option value="">-- Seleccione el Estado --</option>
+                            <label for="estado">ESTADO *</label>
+                            <select id="estado" required>
                                 <option value="Activo">Activo</option>
                                 <option value="Inactivo">Inactivo</option>
                             </select>
                         </div>
-
                         <div class="form-grupo">
-                            <label for="fechaAlta">FECHA DE ALTA</label>
-                            <input type="date" id="fechaAlta" name="fechaAlta" required>
+                            <label for="fechaAlta">FECHA ALTA *</label>
+                            <input type="date" id="fechaAlta" required>
                         </div>
                     </div>
 
                     <div class="form-grupo">
-                        <label for="fechaModificacion">FECHA DE ÚLTIMA MODIFICACIÓN</label>
-                        <input type="date" id="fechaModificacion" name="fechaModificacion">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="descripcion">DESCRIPCIÓN (opcional)</label>
-                        <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 8px; font-family: inherit;"></textarea>
+                        <label for="fechaModificacion">FECHA ÚLTIMA MODIFICACIÓN *</label>
+                        <input type="date" id="fechaModificacion" required>
                     </div>
 
                     <div class="container-btn">
-                        <button type="button" class="btn-cancelar" onclick="window.location.href='productos.html'">CANCELAR</button>
-                        <button type="submit" class="btn-registrar">GUARDAR CAMBIOS</button>
+                        <a href="productos.html" class="btn-cancelar">CANCELAR</a>
+                        <button type="submit" class="btn-registrar">ACTUALIZAR PRODUCTO</button>
                     </div>
                 </form>
             </div>
@@ -130,8 +123,7 @@
 
     </div>
 
-    <!-- Enlace al JS principal -->
     <script src="JS/JSADMIN.js"></script>
-
 </body>
+
 </html>

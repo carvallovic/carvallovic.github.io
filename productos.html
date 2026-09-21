@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos y Servicios - Construcciones Montero</title>
-    
+    <title>Productos - Construcciones Montero</title>
     <link rel="stylesheet" href="CSS/estilos_vc.css">
 </head>
+
 <body onload="renderizarTabla(1)">
 
     <div class="layout-admin">
@@ -20,22 +21,22 @@
                 </div>
 
                 <nav class="menu-grupo">
-                    <a href="admin_home.html" class="menu-item">
-                        <span>⊞</span> Dashboards
+                    <a href="admin_home.html" class="menu-item" data-menu="dashboard">
+                        <span>⊞</span> Dashboard
                     </a>
-                    <a href="#orders" class="menu-item">
+                    <a href="ordenes.html" class="menu-item" data-menu="ordenes">
                         <span>📋</span> Ordenes
                     </a>
-                    <a href="productos.html" class="menu-item activo">
+                    <a href="productos.html" class="menu-item activo" data-menu="productos">
                         <span>📦</span> Productos
                     </a>
-                    <a href="#reports" class="menu-item">
+                    <a href="#reports" class="menu-item" data-menu="reportes">
                         <span>📄</span> Reportes
                     </a>
-                    <a href="empleados.html" class="menu-item">
+                    <a href="empleados.html" class="menu-item" data-menu="personal">
                         <span>👤</span> Personal
                     </a>
-                    <a href="clientes.html" class="menu-item">
+                    <a href="clientes.html" class="menu-item" data-menu="clientes">
                         <span>👥</span> Clientes
                     </a>
                 </nav>
@@ -64,18 +65,16 @@
 
         <!-- ÁREA PRINCIPAL -->
         <main class="contenido-main">
-            
+
             <div class="header-usuarios">
                 <div class="header-left">
                     <h2>Productos y Servicios</h2>
-                    <button class="btn-nuevo" onclick="window.location.href='nuevo_producto.html'">NUEVO PRODUCTO</button>
-                    <button id="btnEditar" class="btn-editar" onclick="editarProducto()">EDITAR PRODUCTO</button>
                 </div>
-                <span class="icono-campana" title="Notificaciones">🔔</span>
-            </div>
-
-            <div class="filtro-sub">
-                Todos los Servicios <span>▼</span>
+                <div class="header-right">
+                    <button class="btn-editar" id="btnEditar" style="display: none;" onclick="editarProducto()">Editar Producto</button>
+                    <a href="nuevo_producto.html" class="btn-nuevo">+ Nuevo Producto</a>
+                    <span class="icono-campana" title="Notificaciones">🔔</span>
+                </div>
             </div>
 
             <div class="tabla-container">
@@ -91,23 +90,24 @@
                         </tr>
                     </thead>
                     <tbody id="tablaCuerpo">
-                        <!-- Generado dinámicamente -->
+                        <!-- Se carga dinámicamente desde JSADMIN.js -->
                     </tbody>
                 </table>
             </div>
 
-            <div class="paginacion-bar">
-                <button onclick="cambiarPagina('prev')">&lt;</button>
-                <button class="btn-num active" onclick="cambiarPagina(1)">1</button>
-                <button onclick="cambiarPagina('next')">&gt;</button>
+            <div class="paginacion-container">
+                <div class="paginacion">
+                    <button class="btn-pag" onclick="cambiarPagina('prev')">&lt;</button>
+                    <button class="btn-num active" onclick="cambiarPagina(1)">1</button>
+                    <button class="btn-pag" onclick="cambiarPagina('next')">&gt;</button>
+                </div>
             </div>
 
         </main>
 
     </div>
 
-    <!-- Enlace al JS -->
     <script src="JS/JSADMIN.js"></script>
-
 </body>
+
 </html>

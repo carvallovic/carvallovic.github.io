@@ -1,5 +1,5 @@
 // ==========================================================================
-// 1. DATOS DE USUARIOS / PERSONAL (CON CORREO INCLUIDO)
+// 1. DATOS DE USUARIOS / PERSONAL (CON CORREO Y PERFIL)
 // ==========================================================================
 const usuariosPorPagina = {
     1: [
@@ -35,7 +35,7 @@ const usuariosPorPagina = {
 };
 
 // ==========================================================================
-// 2. DATOS DE CLIENTES (CON CORREO INCLUIDO)
+// 2. DATOS DE CLIENTES
 // ==========================================================================
 const clientesPorPagina = {
     1: [
@@ -70,49 +70,69 @@ const clientesPorPagina = {
 // ==========================================================================
 const productosPorPagina = {
     1: [
-        { 
-            nombre: "Construcción y ampliaciones", 
-            precioDesde: "$500.000", 
-            precioHasta: "$2.500.000", 
-            estado: "Activo", 
-            fechaAlta: "2024-01-15", 
-            fechaModificacion: "2026-02-10" 
-        },
-        { 
-            nombre: "Tabiquería", 
-            precioDesde: "$150.000", 
-            precioHasta: "$600.000", 
-            estado: "Activo", 
-            fechaAlta: "2024-02-01", 
-            fechaModificacion: "2026-01-20" 
-        },
-        { 
-            nombre: "Instalación de cerámicas", 
-            precioDesde: "$120.000", 
-            precioHasta: "$850.000", 
-            estado: "Activo", 
-            fechaAlta: "2024-03-10", 
-            fechaModificacion: "2026-03-01" 
-        },
-        { 
-            nombre: "Mantenciones del hogar", 
-            precioDesde: "$80.000", 
-            precioHasta: "$350.000", 
-            estado: "Activo", 
-            fechaAlta: "2024-01-10", 
-            fechaModificacion: "2026-03-15" 
-        }
+        { nombre: "Construcción y ampliaciones", precioDesde: "$500.000", precioHasta: "$2.500.000", estado: "Activo", fechaAlta: "2024-01-15", fechaModificacion: "2026-02-10" },
+        { nombre: "Tabiquería", precioDesde: "$150.000", precioHasta: "$600.000", estado: "Activo", fechaAlta: "2024-02-01", fechaModificacion: "2026-01-20" },
+        { nombre: "Instalación de cerámicas", precioDesde: "$120.000", precioHasta: "$850.000", estado: "Activo", fechaAlta: "2024-03-10", fechaModificacion: "2026-03-01" },
+        { nombre: "Mantenciones del hogar", precioDesde: "$80.000", precioHasta: "$350.000", estado: "Activo", fechaAlta: "2024-01-10", fechaModificacion: "2026-03-15" }
     ]
 };
 
-// Variables de estado global
+// Variables globales
 let paginaActual = 1;
 let empleadoSeleccionado = null;
 let clienteSeleccionado = null;
 let productoSeleccionado = null;
 
 // ==========================================================================
-// FUNCIONES AUXILIARES DE BÚSQUEDA Y VALIDACIÓN DE USUARIOS
+// 4. LÓGICA DE CONTROL DE ACCESO Y MENÚS SEGÚN PERFIL
+// ==========================================================================
+function aplicarPermisosMenu() {
+    const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
+
+    // Reglas de permisos por perfil
+    const permisos = {
+        'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Supervisor':    ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Operativo':     ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Vendedor':      ['dashboard', 'ordenes', 'productos', 'clientes'],
+        'Usuario':       ['ordenes']
+    };
+
+    const menusPermitidos = permisos[perfil] || permisos['Administrador'];
+
+    // Ocultar/mostrar ítems del menú lateral según perfil
+    const itemsMenu = document.querySelectorAll('.menu-grupo a[data-menu]');
+    itemsMenu.forEach(item => {
+        const idMenu = item.getAttribute('data-menu');
+        if (menusPermitidos.includes(idMenu)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // Control de acceso directo por URL a páginas no autorizadas
+    const paginaActualArchivo = window.location.pathname.split('/').pop() || 'admin_home.html';
+    const mapaPaginaMenu = {
+        'admin_home.html': 'dashboard',
+        'ordenes.html': 'ordenes',
+        'productos.html': 'productos',
+        'empleados.html': 'personal',
+        'clientes.html': 'clientes'
+    };
+
+    const requerimientoMenu = mapaPaginaMenu[paginaActualArchivo];
+    if (requerimientoMenu && !menusPermitidos.includes(requerimientoMenu)) {
+        if (menusPermitidos.includes('ordenes')) {
+            window.location.href = 'ordenes.html';
+        } else if (menusPermitidos.includes('dashboard')) {
+            window.location.href = 'admin_home.html';
+        }
+    }
+}
+
+// ==========================================================================
+// 5. BÚSQUEDA Y VALIDACIÓN DE USUARIOS
 // ==========================================================================
 function validarCorreoDominio(correo) {
     if (!correo) return false;
@@ -125,13 +145,11 @@ function buscarUsuarioPorCorreo(correo) {
     if (!correo) return null;
     const correoLimpio = correo.trim().toLowerCase();
 
-    // Buscar en personal / usuarios
     for (const p in usuariosPorPagina) {
         const u = usuariosPorPagina[p].find(item => item.correo.trim().toLowerCase() === correoLimpio);
         if (u) return u;
     }
 
-    // Buscar en clientes
     for (const p in clientesPorPagina) {
         const c = clientesPorPagina[p].find(item => item.correo.trim().toLowerCase() === correoLimpio);
         if (c) return c;
@@ -141,12 +159,13 @@ function buscarUsuarioPorCorreo(correo) {
 }
 
 // ==========================================================================
-// 4. RENDERIZAR VISTA DASHBOARD INICIO
+// 6. RENDERIZADO DEL DASHBOARD INICIO
 // ==========================================================================
 function renderizarInicioAdmin() {
     renderizarSaludoUsuario();
     renderizarUltimosClientes();
     renderizarUltimosProductos();
+    aplicarPermisosMenu();
 }
 
 function renderizarSaludoUsuario() {
@@ -208,7 +227,7 @@ function renderizarUltimosProductos() {
 }
 
 // ==========================================================================
-// 5. DETECCIÓN Y ROUTING DE PÁGINAS
+// 7. ROUTING Y TABLAS DE MANTENEDORES
 // ==========================================================================
 function esPaginaClientes() {
     const tituloHeader = document.querySelector('.header-left h2')?.innerText || '';
@@ -235,9 +254,6 @@ function renderizarTabla(pagina) {
     }
 }
 
-// ==========================================================================
-// 6. LÓGICA PARA USUARIOS / PERSONAL
-// ==========================================================================
 function renderizarTablaUsuarios(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
@@ -308,9 +324,6 @@ function editarEmpleado() {
     }
 }
 
-// ==========================================================================
-// 7. LÓGICA PARA CLIENTES
-// ==========================================================================
 function renderizarTablaClientes(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
@@ -381,9 +394,6 @@ function editarCliente() {
     }
 }
 
-// ==========================================================================
-// 8. LÓGICA PARA PRODUCTOS / SERVICIOS
-// ==========================================================================
 function renderizarTablaProductos(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
@@ -453,7 +463,7 @@ function editarProducto() {
 }
 
 // ==========================================================================
-// 9. PAGINACIÓN
+// 8. PAGINACIÓN Y EVENTOS DOM
 // ==========================================================================
 function actualizarBotonesPaginacion(pagina) {
     const botones = document.querySelectorAll('.btn-num');
@@ -484,15 +494,14 @@ function cambiarPagina(target) {
     renderizarTabla(paginaActual);
 }
 
-// ==========================================================================
-// 10. CONTROL DE FORMULARIOS Y EVENTOS DOM
-// ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
+    aplicarPermisosMenu();
+
     if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
     }
 
-    // --- FORMULARIO DE LOGIN ---
+    // LOGIN
     const formLogin = document.getElementById('formLogin') || document.querySelector('.login-form');
     if (formLogin) {
         formLogin.addEventListener('submit', function (event) {
@@ -513,15 +522,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Guardar el nombre del usuario logueado en sessionStorage
+            // Guardar datos de sesión
             sessionStorage.setItem('usuarioLogueado', usuarioEncontrado.nombre);
+            sessionStorage.setItem('perfilLogueado', usuarioEncontrado.perfil);
 
-            // Redirección al dashboard
-            window.location.href = 'admin_home.html';
+            // Redireccionar según el perfil
+            if (usuarioEncontrado.perfil === 'Usuario') {
+                window.location.href = 'ordenes.html';
+            } else {
+                window.location.href = 'admin_home.html';
+            }
         });
     }
 
-    // --- FORMULARIO DE EMPLEADOS (NUEVO / EDITAR) ---
+    // FORMULARIO DE EMPLEADOS
     const formNuevoUsuario = document.getElementById('formNuevoUsuario');
     if (formNuevoUsuario) {
         const datosEmpleadoGuardados = sessionStorage.getItem('empleadoAEditar');
@@ -579,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- FORMULARIO DE CLIENTES (NUEVO / EDITAR) ---
+    // FORMULARIO DE CLIENTES
     const formNuevoCliente = document.getElementById('formNuevoCliente');
     if (formNuevoCliente) {
         const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
@@ -632,7 +646,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- FORMULARIO DE PRODUCTOS (EDITAR) ---
+    // FORMULARIO DE PRODUCTOS
     const formEditarProducto = document.getElementById('formEditarProducto');
     if (formEditarProducto) {
         const datosProductoGuardados = sessionStorage.getItem('productoAEditar');
@@ -665,3 +679,54 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+function aplicarPermisosMenu() {
+    const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
+
+    // Reglas de permisos por perfil
+    const permisos = {
+        'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Supervisor':    ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Operativo':     ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
+        'Vendedor':      ['dashboard', 'ordenes', 'productos', 'clientes'],
+        'Usuario':       ['ordenes']
+    };
+
+    const menusPermitidos = permisos[perfil] || permisos['Administrador'];
+
+    // Ocultar/mostrar ítems del menú lateral según perfil
+    const itemsMenu = document.querySelectorAll('.menu-grupo a[data-menu]');
+    itemsMenu.forEach(item => {
+        const idMenu = item.getAttribute('data-menu');
+        if (menusPermitidos.includes(idMenu)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // Mapeo completo incluyendo páginas de creación y edición
+    const paginaActualArchivo = window.location.pathname.split('/').pop() || 'admin_home.html';
+    const mapaPaginaMenu = {
+        'admin_home.html': 'dashboard',
+        'ordenes.html': 'ordenes',
+        'productos.html': 'productos',
+        'nuevo_producto.html': 'productos',
+        'editar_producto.html': 'productos',
+        'empleados.html': 'personal',
+        'nuevo_empleado.html': 'personal',
+        'editar_empleado.html': 'personal',
+        'clientes.html': 'clientes',
+        'nuevo_cliente.html': 'clientes',
+        'editar_cliente.html': 'clientes'
+    };
+
+    const requerimientoMenu = mapaPaginaMenu[paginaActualArchivo];
+    if (requerimientoMenu && !menusPermitidos.includes(requerimientoMenu)) {
+        if (menusPermitidos.includes('ordenes')) {
+            window.location.href = 'ordenes.html';
+        } else if (menusPermitidos.includes('dashboard')) {
+            window.location.href = 'admin_home.html';
+        }
+    }
+}
