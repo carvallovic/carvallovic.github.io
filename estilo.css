@@ -1,0 +1,335 @@
+body {
+    background-color: white;
+    font-family: Arial;
+}
+
+table {
+    width: 100%;
+    background-color: #333;
+    text-align: center;
+}
+
+td {
+    padding:8px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 30px;
+    color: #0b2341;
+}
+
+h3 {
+    text-align: center;
+    color: #0b2341;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    width: 80%;
+    margin: 15px auto 25px auto;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+#logo {
+    width: 250px;
+}
+
+.servicios {
+    display: grid;
+    grid-template-columns: 500px 500px;
+    justify-content: center;
+    gap: 50px;
+}
+
+.caja-servicio {
+    width: 500px;
+    text-align: center;
+}
+
+.servicio {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.caja-servicio h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.caja-servicio p {
+    width: 100%;
+    margin: 0 auto 30px auto;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+footer {
+    background-color: #0b2341;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer span {
+    margin: 0 20px;
+}
+
+form {
+    width: 500px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+form textarea {
+    width: 100%;
+    height: 150px;
+}
+
+form button {
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: #0b2341;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.carrusel {
+    width: 700px;
+    margin: 30px auto 60px auto;
+    text-align: center;
+}
+
+.contenedor-imagen {
+    width: 700px;
+    height: 480px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contenedor-imagen img {
+    width: 700px;
+    height: 480px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 1s ease;
+}
+
+#imagenActual {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#imagenNueva {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+#nombreServicio {
+    margin-top: 15px;
+    margin-bottom: 0;
+    transition: opacity 1s ease;
+}
+
+body {
+    background-color: #f5f5f5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M20 20 L35 5 M75 45 L90 30 M45 90 L60 75 M105 105 L120 90 M5 65 L20 50' stroke='%230f2f52' stroke-width='2' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+#errorNombre,
+#errorCorreo,
+#errorTelefono,
+#errorMensaje {
+    width: 100%;
+    margin: 5px 0 10px 0;
+    text-align: left;
+    font-size: 14px;
+    color: #b00020;
+}
+
+.botones-cotizacion {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#listaCotizacion {
+    width: 600px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+#listaCotizacion div {
+    margin: 10px 0;
+}
+
+#listaCotizacion button {
+    margin-left: 10px;
+}
+
+#errorTipoProyecto,
+#errorMetros,
+#errorComuna,
+#errorDescripcionProyecto,
+#errorMateriales,
+#errorNombreCotizacion,
+#errorCorreoCotizacion {
+    width: 100%;
+    margin: 5px 0 10px 0;
+    text-align: left;
+    font-size: 14px;
+    color: #b00020;
+}
+
+#errorNombreRegistro,
+#errorCorreoRegistro,
+#errorPasswordRegistro,
+#errorConfirmarPassword {
+    width: 100%;
+    margin: 5px 0 10px 0;
+    text-align: left;
+    font-size: 14px;
+    color: #b00020;
+}
+
+.botones-usuario {
+    text-align: right;
+    margin: 15px 30px 0 0;
+}
+
+.botones-usuario a {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 10px 18px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.header-pagina {
+    padding-top: 46px;
+}
+.entrada-blog {
+    width: 700px;
+    margin: 40px auto 60px auto;
+    text-align: center;
+}
+
+.imagen-blog {
+    width: 350px !important;
+    height: 210px !important;
+    object-fit: cover;
+    margin: 20px auto;
+}
+
+.entrada-blog p {
+    width: 100%;
+    margin: 15px auto 20px auto;
+    text-align: center;
+}
+
+.leer-mas {
+    display: inline-block;
+    background-color: #0b2341 !important;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.volver-blog {
+    display: inline-block;
+    background-color: #0b2341;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.volver-blog:hover {
+    background-color: #333;
+}
+
+.detalle-servicio {
+    width: 700px;
+    margin: 40px auto 60px auto;
+    text-align: center;
+}
+
+.imagen-detalle {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    margin: 20px auto;
+}
+
+.detalle-servicio p {
+    width: 100%;
+}
+
+#botonDetalle {
+    margin-top: 10px;
+    padding: 10px 25px;
+    background-color: #0b2341;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#botonDetalle:hover {
+    background-color: #333;
+}
+
+.caja-servicio h3 a {
+    color: #0b2341;
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.caja-servicio h3 a:hover {
+    color: #333;
+}
+
+.video-construccion {
+    display: block;
+    width: 700px;
+    max-width: 90%;
+    height: auto;
+    margin: 30px auto 60px auto;
+}
