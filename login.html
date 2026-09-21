@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Iniciar Sesión - Construcciones Montero</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/estilo.css">
+</head>
+
+<body>
+
+    <header>
+        <img id="logo" src="img/LOGO.png" alt="Logo Construcciones Montero">
+        <h1>Construcciones Montero</h1>
+    </header>
+
+    <nav>
+        <table>
+            <tr>
+                <td><a href="index.html">Inicio</a></td>
+                <td><a href="nosotros.html">Nosotros</a></td>
+                <td><a href="servicios.html">Servicios</a></td>
+                <td><a href="contacto.html">Contacto</a></td>
+                <td><a href="carrito.html">Mi Cotización</a></td>
+            </tr>
+        </table>
+    </nav>
+
+    <main>
+        <div class="login-card">
+            <h2>Iniciar Sesión</h2>
+            
+            <form action="admin_home.html" method="GET" class="login-form">
+                <div>
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div>
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-submit-login">INGRESAR</button>
+            </form>
+
+            <p class="login-help-link">
+                <a href="contacto.html">¿Olvidaste tu contraseña o necesitas ayuda?</a>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <span>Construcciones Montero</span>
+        <span>Construcción y mantención en general</span>
+        <span>© 2026 Construcciones Montero</span>
+    </footer>
+
+    <script src="JS/script.js"></script>
+
+</body>
+
+</html>
