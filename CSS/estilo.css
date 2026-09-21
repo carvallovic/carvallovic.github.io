@@ -214,100 +214,122 @@ body {
     color: #b00020;
 }
 
-.btn-admin {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background-color: #0d6efd;
-    color: #ffffff;
-    padding: 8px 16px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
+#errorNombreRegistro,
+#errorCorreoRegistro,
+#errorPasswordRegistro,
+#errorConfirmarPassword {
+    width: 100%;
+    margin: 5px 0 10px 0;
+    text-align: left;
+    font-size: 14px;
+    color: #b00020;
+}
+
+.botones-usuario {
+    text-align: right;
+    margin: 15px 30px 0 0;
+}
+
+.botones-usuario a {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 10px 18px;
+    margin-left: 10px;
+    font-size: 16px;
     border-radius: 4px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    transition: background-color 0.2s;
 }
 
-.btn-admin:hover {
-    background-color: #0b5ed7;
+.header-pagina {
+    padding-top: 46px;
 }
-
-/* ==========================================================================
-   ESTILOS ESPECÍFICOS DE LA PÁGINA DE LOGIN
-   ========================================================================== */
-.login-card {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.entrada-blog {
+    width: 700px;
+    margin: 40px auto 60px auto;
     text-align: center;
 }
 
-.login-card h2 {
-    margin-bottom: 20px;
-    margin-top: 0;
+.imagen-blog {
+    width: 350px !important;
+    height: 210px !important;
+    object-fit: cover;
+    margin: 20px auto;
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    text-align: left;
-    width: auto;
-    margin: 0;
+.entrada-blog p {
+    width: 100%;
+    margin: 15px auto 20px auto;
+    text-align: center;
 }
 
-.login-form label {
-    font-weight: bold;
-    display: block;
-    margin-top: 0;
-    margin-bottom: 5px;
+.leer-mas {
+    display: inline-block;
+    background-color: #0b2341 !important;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.volver-blog {
+    display: inline-block;
+    background-color: #0b2341;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.volver-blog:hover {
+    background-color: #333;
+}
+
+.detalle-servicio {
+    width: 700px;
+    margin: 40px auto 60px auto;
+    text-align: center;
+}
+
+.imagen-detalle {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    margin: 20px auto;
+}
+
+.detalle-servicio p {
+    width: 100%;
+}
+
+#botonDetalle {
+    margin-top: 10px;
+    padding: 10px 25px;
+    background-color: #0b2341;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#botonDetalle:hover {
+    background-color: #333;
+}
+
+.caja-servicio h3 a {
+    color: #0b2341;
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.caja-servicio h3 a:hover {
     color: #333;
 }
 
-.login-form input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1rem;
-}
-
-.btn-submit-login {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.btn-submit-login:hover {
-    background-color: #003d80;
-}
-
-.login-help-link {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-.login-help-link a {
-    color: #0056b3;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.login-help-link a:hover {
-    text-decoration: underline;
+.video-construccion {
+    display: block;
+    width: 700px;
+    max-width: 90%;
+    height: auto;
+    margin: 30px auto 60px auto;
 }
