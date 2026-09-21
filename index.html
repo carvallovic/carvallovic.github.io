@@ -1,82 +1,106 @@
-<!DOCTYPE html>
-<html lang="es">
+<HTML>
 
-<head>
-    <title>Construcciones Montero</title> 
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="CSS/estilo.css">
-</head>
+<HEAD>
+<TITLE>Construcciones Montero</title> 
+<meta charset="UTF-8">
+<link rel="stylesheet" href="CSS/estilo.css">
 
-<body>
+</HEAD>
 
-    <header>
-        <img id="logo" src="img/LOGO.png" alt="Logo Construcciones Montero">
-        <h1>Construcciones Montero</h1>
-        
-        <!-- Reemplazado botón ADMIN por INICIAR SESIÓN redirigiendo a login.html -->
-        <a href="login.html" class="btn-admin">INICIAR SESIÓN</a>
-    </header>
+<BODY>
 
-    <nav>
-        <table>
-            <tr>
-                <td><a href="index.html">Inicio</a></td>
-                <td><a href="nosotros.html">Nosotros</a></td>
-                <td><a href="servicios.html">Servicios</a></td>
-                <td><a href="contacto.html">Contacto</a></td>
-                <td><a href="carrito.html">Mi Cotización</a></td>
-            </tr>
-        </table>
-    </nav>
+<header>
 
-    <main>
-        <h2>Conoce nuestro trabajo</h2>
+<div class="botones-usuario">
 
-        <div style="text-align: center;">
-            <iframe 
-                width="560" 
-                height="315" 
-                src="https://www.youtube.com/embed/xkN1nE9II78"
-                title="Video sobre construcción"
-                allowfullscreen>
-            </iframe>
-        </div>
+    <a href="login.html">Iniciar sesión</a>
 
-        <section>
-            <h2>Construcción y mantención para tu hogar</h2>
-            <p>
-                Cada espacio tiene el potencial de convertirse en algo mejor.
-                En Construcciones Montero hacemos realidad tus proyectos,
-                cuidando cada detalle desde el inicio hasta el resultado final.
-            </p>
+    <a href="registro.html">Registrarse</a>
 
-            <h3>Compromiso en cada proyecto</h3>
-            <p>
-                Trabajamos con responsabilidad y atención a los detalles, buscando
-                entregar soluciones funcionales y de calidad.
-            </p>
-        </section>
+</div>
 
-        <section>
-            <h2>Nuestros servicios</h2>
-            <div class="carrusel">
-                <div class="contenedor-imagen">
-                    <img id="imagenActual" src="img/Construccion.png">
-                    <img id="imagenNueva" src="img/Tabiqueria.png">
-                </div>
-                <h3 id="nombreServicio">Construcción y ampliaciones</h3>
-            </div>
-        </section>
-    </main>
+<h1>Construcciones Montero</h1>
 
-    <footer>
-        <span>Construcciones Montero</span>
-        <span>Construcción y mantención en general</span>
-        <span>© 2026 Construcciones Montero</span>
-    </footer>
+<img id="logo" src="img/LOGO.png">
 
-    <script src="JS/script.js"></script>
+</header>
 
-</body>
+<nav>
 
-</html>
+<table>
+    <td><a href="index1.html">Inicio</a></td>
+    <td><a href="nosotros.html">Nosotros</a></td>
+    <td><a href="servicios.html">Servicios</a></td>
+    <td><a href="blog.html">Blog</a></td>
+    <td><a href="contacto.html">Contacto</a></td>
+    <td><a href="carrito.html">Mi Cotización</a></td>
+</table>
+
+</nav>
+
+<main>
+
+<h2>Conoce nuestro trabajo</h2>
+
+<div style="text-align: center;">
+
+    <video class="video-construccion" autoplay muted loop controls>
+    <source src="VIDEO/construccion.mp4" type="video/mp4">
+    Tu navegador no puede reproducir este video.
+    </video>
+
+</div>
+<section>
+
+<h2>Construcción y mantención para tu hogar</h2>
+
+<p>
+Cada espacio tiene el potencial de convertirse en algo mejor.
+En Construcciones Montero hacemos realidad tus proyectos,
+cuidando cada detalle desde el inicio hasta el resultado final.
+</p>
+
+<h3>Compromiso en cada proyecto</h3>
+
+<p>
+Trabajamos con responsabilidad y atención a los detalles, buscando
+entregar soluciones funcionales y de calidad.
+</p>
+
+</section>
+
+<section>
+
+<h2>Nuestros servicios</h2>
+
+<div class="carrusel">
+
+    <div class="contenedor-imagen">
+
+        <img id="imagenActual" src="img/construccion.png">
+
+        <img id="imagenNueva" src="img/tabiqueria.png">
+
+    </div>
+
+        <h3 id="nombreServicio">Construcción y ampliaciones</h3>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+    <span>Construcciones Montero</span>
+    <span>Construcción y mantención en general</span>
+    <span>© 2026 Construcciones Montero</span>
+
+</footer>
+
+<script src="JS/script.js"></script>
+
+</BODY>
+
+</HTML>
