@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Usuario - Construcciones Montero</title>
+    <title>Nuevo Empleado - Construcciones Montero</title>
     
     <link rel="stylesheet" href="CSS/estilos_vc.css">
-
 </head>
 <body>
 
@@ -66,85 +65,99 @@
         <!-- ÁREA PRINCIPAL -->
         <main class="contenido-main">
             
-            <h1 class="titulo-pagina">NUEVO EMPLEADO</h1>
+            <h1 class="titulo-pagina">REGISTRO DE NUEVO EMPLEADO</h1>
 
             <div class="card-registro">
-                <div class="banner-registro">Registro de empleado</div>
+                <div class="banner-registro">Ingreso de datos de Personal</div>
 
-                <!-- Mensaje de confirmación de registro -->
+                <!-- Mensaje de confirmación -->
                 <div id="mensajeExito" class="alerta-exito">
-                    ✓ ¡El empleado ha sido registrado con éxito!
+                    ✓ ¡Empleado registrado exitosamente!
                 </div>
 
                 <form id="formNuevoUsuario">
                     <div class="form-grupo">
                         <label for="nombre">NOMBRE COMPLETO</label>
-                        <input type="text" id="nombre" name="nombre" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez Soto" required>
                     </div>
 
-                    <div class="form-grupo">
-                        <label for="correo">CORREO</label>
-                        <input type="email" id="correo" name="correo" required>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="direccion">DIRECCIÓN</label>
-                        <input type="text" id="direccion" name="direccion">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="cargo">CARGO</label>
-                        <input type="text" id="cargo" name="cargo" required>
-                    </div>
-
-                    <div class="grid-perfil">
+                    <div class="grid-selects">
                         <div class="form-grupo">
-                            <label for="perfil">PERFIL</label>
+                            <label for="cargo">CARGO</label>
+                            <input type="text" id="cargo" name="cargo" placeholder="Ej: Maestro Mayor" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="perfil">PERFIL / ROL</label>
                             <select id="perfil" name="perfil" required>
-                                <option value="">-- Seleccione el Perfil --</option>
+                                <option value="">-- Seleccione Perfil --</option>
+                                <option value="admin">Administrador</option>
                                 <option value="sup">Supervisor</option>
+                                <option value="vend">Vendedor</option>
                                 <option value="op">Operativo</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-grupo">
-                        <label for="contrasena">CONTRASEÑA</label>
-                        <input type="password" id="contrasena" name="contrasena" required>
+                    <div class="grid-perfil">
+                        <div class="form-grupo">
+                            <label for="correo">CORREO ELECTRÓNICO</label>
+                            <input type="email" id="correo" name="correo" placeholder="correo@montero.cl" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="telefono">TELÉFONO DE CONTACTO</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required>
+                        </div>
                     </div>
 
                     <div class="form-grupo">
-                        <label for="confirmarContrasena">CONFIRMAR CONTRASEÑA</label>
-                        <input type="password" id="confirmarContrasena" name="confirmarContrasena" required>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="telefono">TELÉFONO (opcional)</label>
-                        <input type="tel" id="telefono" name="telefono">
+                        <label for="direccion">DIRECCIÓN</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Calle, número, depto" required>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
-                            <select id="region" name="region">
-                                <option value="">-- Seleccione la Región --</option>
-                                <option value="rm">Región Metropolitana de Santiago</option>
-                                <option value="araucania">Región de la Araucanía</option>
-                                <option value="nuble">Región de Ñuble</option>
+                            <label for="region">REGIÓN</label>
+                            <select id="region" name="region" required>
+                                <option value="">-- Seleccione Región --</option>
+                                <option value="rm">Región Metropolitana</option>
+                                <option value="maule">Región del Maule</option>
+                                <option value="valpo">Región de Valparaíso</option>
                             </select>
                         </div>
 
                         <div class="form-grupo">
-                            <select id="comuna" name="comuna">
-                                <option value="">-- Seleccione la comuna --</option>
+                            <label for="comuna">COMUNA</label>
+                            <select id="comuna" name="comuna" required>
+                                <option value="">-- Seleccione Comuna --</option>
+                                <option value="santiago">Santiago</option>
                                 <option value="linares">Linares</option>
-                                <option value="longavi">Longaví</option>
-                                <option value="concepcion">Concepción</option>
+                                <option value="talca">Talca</option>
                             </select>
                         </div>
                     </div>
 
+                    <div class="form-grupo">
+                        <label for="fechaNacimiento">FECHA DE NACIMIENTO</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label for="contrasena">CONTRASEÑA</label>
+                            <input type="password" id="contrasena" name="contrasena" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="confirmarContrasena">CONFIRMAR CONTRASEÑA</label>
+                            <input type="password" id="confirmarContrasena" name="confirmarContrasena" required>
+                        </div>
+                    </div>
+
                     <div class="container-btn">
-                        <button type="submit" class="btn-registrar">REGISTRAR</button>
+                        <button type="button" class="btn-cancelar" onclick="window.location.href='empleados.html'">CANCELAR</button>
+                        <button type="submit" class="btn-registrar">GUARDAR EMPLEADO</button>
                     </div>
                 </form>
             </div>
@@ -153,9 +166,7 @@
 
     </div>
 
-    
-
-    <!-- Enlace al JS en mis carpertas -->
+    <!-- JS principal -->
     <script src="JS/JSADMIN.js"></script>
 
 </body>

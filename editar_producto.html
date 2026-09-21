@@ -133,41 +133,5 @@
     <!-- Enlace al JS principal -->
     <script src="JS/JSADMIN.js"></script>
 
-    <!-- Script para autocompletar formulario con datos del producto seleccionado -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const datosGuardados = sessionStorage.getItem('productoAEditar');
-
-            if (datosGuardados) {
-                const producto = JSON.parse(datosGuardados);
-
-                if (document.getElementById('nombre')) document.getElementById('nombre').value = producto.nombre || '';
-                if (document.getElementById('precioDesde')) document.getElementById('precioDesde').value = producto.precioDesde || '';
-                if (document.getElementById('precioHasta')) document.getElementById('precioHasta').value = producto.precioHasta || '';
-                if (document.getElementById('estado')) document.getElementById('estado').value = producto.estado || 'Activo';
-                if (document.getElementById('fechaAlta')) document.getElementById('fechaAlta').value = producto.fechaAlta || '';
-                if (document.getElementById('fechaModificacion')) document.getElementById('fechaModificacion').value = producto.fechaModificacion || '';
-
-                // Limpiar storage tras cargar
-                sessionStorage.removeItem('productoAEditar');
-            }
-
-            const form = document.getElementById('formEditarProducto');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const mensaje = document.getElementById('mensajeExito');
-                    if (mensaje) {
-                        mensaje.style.display = 'block';
-                        mensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        setTimeout(() => {
-                            mensaje.style.display = 'none';
-                        }, 4000);
-                    }
-                });
-            }
-        });
-    </script>
-
 </body>
 </html>

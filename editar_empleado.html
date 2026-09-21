@@ -6,7 +6,6 @@
     <title>Editar Empleado - Construcciones Montero</title>
     
     <link rel="stylesheet" href="CSS/estilos_vc.css">
-
 </head>
 <body>
 
@@ -69,10 +68,11 @@
             <h1 class="titulo-pagina">EDITAR EMPLEADO</h1>
 
             <div class="card-registro">
-                <div class="banner-registro">Edición de datos de empleado</div>
+                <div class="banner-registro">Edición de Datos de Personal</div>
 
+                <!-- Mensaje de confirmación -->
                 <div id="mensajeExito" class="alerta-exito">
-                    ✓ ¡Los cambios han sido guardados con éxito!
+                    ✓ ¡Los datos del empleado han sido guardados con éxito!
                 </div>
 
                 <form id="formNuevoUsuario">
@@ -81,64 +81,77 @@
                         <input type="text" id="nombre" name="nombre" required>
                     </div>
 
-                    <div class="form-grupo">
-                        <label for="correo">CORREO</label>
-                        <input type="email" id="correo" name="correo" required>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="direccion">DIRECCIÓN</label>
-                        <input type="text" id="direccion" name="direccion">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="cargo">CARGO</label>
-                        <input type="text" id="cargo" name="cargo" required>
-                    </div>
-
-                    <div class="grid-perfil">
+                    <div class="grid-selects">
                         <div class="form-grupo">
-                            <label for="perfil">PERFIL</label>
+                            <label for="cargo">CARGO</label>
+                            <input type="text" id="cargo" name="cargo" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="perfil">PERFIL / ROL</label>
                             <select id="perfil" name="perfil" required>
-                                <option value="">-- Seleccione el Perfil --</option>
+                                <option value="">-- Seleccione Perfil --</option>
+                                <option value="admin">Administrador</option>
                                 <option value="sup">Supervisor</option>
+                                <option value="vend">Vendedor</option>
                                 <option value="op">Operativo</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-grupo">
-                        <label for="contrasena">NUEVA CONTRASEÑA</label>
-                        <input type="password" id="contrasena" name="contrasena" placeholder="Deja en blanco para no cambiar">
+                    <div class="grid-perfil">
+                        <div class="form-grupo">
+                            <label for="correo">CORREO ELECTRÓNICO</label>
+                            <input type="email" id="correo" name="correo" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="telefono">TELÉFONO DE CONTACTO</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
                     </div>
 
                     <div class="form-grupo">
-                        <label for="confirmarContrasena">CONFIRMAR NUEVA CONTRASEÑA</label>
-                        <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Deja en blanco para no cambiar">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="telefono">TELÉFONO</label>
-                        <input type="tel" id="telefono" name="telefono">
+                        <label for="direccion">DIRECCIÓN</label>
+                        <input type="text" id="direccion" name="direccion" required>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
-                            <select id="region" name="region">
-                                <option value="">-- Seleccione la Región --</option>
-                                <option value="rm">Región Metropolitana de Santiago</option>
-                                <option value="araucania">Región de la Araucanía</option>
-                                <option value="nuble">Región de Ñuble</option>
+                            <label for="region">REGIÓN</label>
+                            <select id="region" name="region" required>
+                                <option value="">-- Seleccione Región --</option>
+                                <option value="rm">Región Metropolitana</option>
+                                <option value="maule">Región del Maule</option>
+                                <option value="valpo">Región de Valparaíso</option>
                             </select>
                         </div>
 
                         <div class="form-grupo">
-                            <select id="comuna" name="comuna">
-                                <option value="">-- Seleccione la comuna --</option>
+                            <label for="comuna">COMUNA</label>
+                            <select id="comuna" name="comuna" required>
+                                <option value="">-- Seleccione Comuna --</option>
+                                <option value="santiago">Santiago</option>
                                 <option value="linares">Linares</option>
-                                <option value="longavi">Longaví</option>
-                                <option value="concepcion">Concepción</option>
+                                <option value="talca">Talca</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="fechaNacimiento">FECHA DE NACIMIENTO</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label for="contrasena">NUEVA CONTRASEÑA (OPCIONAL)</label>
+                            <input type="password" id="contrasena" name="contrasena">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="confirmarContrasena">CONFIRMAR NUEVA CONTRASEÑA</label>
+                            <input type="password" id="confirmarContrasena" name="confirmarContrasena">
                         </div>
                     </div>
 
@@ -153,6 +166,7 @@
 
     </div>
 
+    <!-- JS principal -->
     <script src="JS/JSADMIN.js"></script>
 
 </body>
