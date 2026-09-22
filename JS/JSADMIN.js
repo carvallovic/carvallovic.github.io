@@ -4,8 +4,8 @@
 const usuariosPorPagina = {
     1: [
         { nombre: "Víctor Carvallo", cargo: "Administrador General", perfil: "Administrador", correo: "v.carvallo@profesor.duoc.cl", nacimiento: "1980-05-14", estado: "Activo", ingreso: "2020-01-15", egreso: "-" },
-        { nombre: "Ana María Rojas", cargo: "Arquitecta de Obra", perfil: "Supervisor", correo: "a.rojas@duoc.cl", nacimiento: "1990-08-23", estado: "Activo", ingreso: "2023-01-10", egreso: "-" },
-        { nombre: "Patricia Silva Castro", cargo: "Prevencionista de Riesgos", perfil: "Supervisor", correo: "p.silva@profesor.duoc.cl", nacimiento: "1988-03-19", estado: "Activo", ingreso: "2023-08-20", egreso: "-" },
+        { nombre: "Ana María Rojas", cargo: "Arquitecta de Obra", perfil: "Administrador", correo: "a.rojas@duoc.cl", nacimiento: "1990-08-23", estado: "Activo", ingreso: "2023-01-10", egreso: "-" },
+        { nombre: "Patricia Silva Castro", cargo: "Prevencionista de Riesgos", perfil: "Administrador", correo: "p.silva@profesor.duoc.cl", nacimiento: "1988-03-19", estado: "Activo", ingreso: "2023-08-20", egreso: "-" },
         { nombre: "Matías Vera Muñoz", cargo: "Ejecutivo de Ventas", perfil: "Vendedor", correo: "m.vera@gmail.com", nacimiento: "1993-02-11", estado: "Activo", ingreso: "2024-01-15", egreso: "-" },
         { nombre: "Claudia Reyes Morales", cargo: "Vendedora Terreno", perfil: "Vendedor", correo: "c.reyes@duoc.cl", nacimiento: "1991-09-05", estado: "Activo", ingreso: "2023-05-10", egreso: "-" },
         { nombre: "Cristián Fuentes Parra", cargo: "Ejecutivo de Ventas", perfil: "Vendedor", correo: "c.fuentes@gmail.com", nacimiento: "1987-11-30", estado: "Inactivo", ingreso: "2022-04-01", egreso: "2024-01-15" },
@@ -13,9 +13,9 @@ const usuariosPorPagina = {
         { nombre: "Roberto Gómez Vera", cargo: "Electricista Capataz", perfil: "Operativo", correo: "r.gomez@gmail.com", nacimiento: "1982-11-05", estado: "Inactivo", ingreso: "2021-06-01", egreso: "2024-02-28" }
     ],
     2: [
-        { nombre: "Valeria Godoy Nuñez", cargo: "Diseñadora de Interiores", perfil: "Supervisor", correo: "v.godoy@profesor.duoc.cl", nacimiento: "1992-06-18", estado: "Activo", ingreso: "2024-05-10", egreso: "-" },
-        { nombre: "Camila Sepúlveda Soto", cargo: "Asistente de Prevención", perfil: "Supervisor", correo: "c.sepulveda@duoc.cl", nacimiento: "1995-02-14", estado: "Activo", ingreso: "2023-11-15", egreso: "-" },
-        { nombre: "Gonzalo Ibáñez Lagos", cargo: "Topógrafo", perfil: "Supervisor", correo: "g.ibanez@profesor.duoc.cl", nacimiento: "1986-11-22", estado: "Activo", ingreso: "2022-04-10", egreso: "-" },
+        { nombre: "Valeria Godoy Nuñez", cargo: "Diseñadora de Interiores", perfil: "Administrador", correo: "v.godoy@profesor.duoc.cl", nacimiento: "1992-06-18", estado: "Activo", ingreso: "2024-05-10", egreso: "-" },
+        { nombre: "Camila Sepúlveda Soto", cargo: "Asistente de Prevención", perfil: "Administrador", correo: "c.sepulveda@duoc.cl", nacimiento: "1995-02-14", estado: "Activo", ingreso: "2023-11-15", egreso: "-" },
+        { nombre: "Gonzalo Ibáñez Lagos", cargo: "Topógrafo", perfil: "Administrador", correo: "g.ibanez@profesor.duoc.cl", nacimiento: "1986-11-22", estado: "Activo", ingreso: "2022-04-10", egreso: "-" },
         { nombre: "Daniela Araya Soto", cargo: "Vendedora Canal Empresa", perfil: "Vendedor", correo: "d.araya@gmail.com", nacimiento: "1994-04-18", estado: "Activo", ingreso: "2023-09-01", egreso: "-" },
         { nombre: "Felipe Henríquez Palma", cargo: "Ejecutivo de Ventas", perfil: "Vendedor", correo: "f.henriquez@duoc.cl", nacimiento: "1989-08-25", estado: "Activo", ingreso: "2022-10-12", egreso: "-" },
         { nombre: "Andrea Castillo Riquelme", cargo: "Vendedora de Proyectos", perfil: "Vendedor", correo: "a.castillo@gmail.com", nacimiento: "1992-12-03", estado: "Activo", ingreso: "2024-02-20", egreso: "-" },
@@ -23,7 +23,7 @@ const usuariosPorPagina = {
         { nombre: "Diego Morales Pinto", cargo: "Jornal Avanzado", perfil: "Operativo", correo: "d.morales@gmail.com", nacimiento: "1994-07-30", estado: "Inactivo", ingreso: "2022-11-05", egreso: "2023-12-15" }
     ],
     3: [
-        { nombre: "Natalia Espinoza Vega", cargo: "Dibujante Técnico", perfil: "Supervisor", correo: "n.espinoza@profesor.duoc.cl", nacimiento: "1989-09-04", estado: "Inactivo", ingreso: "2022-03-01", egreso: "2024-06-30" },
+        { nombre: "Natalia Espinoza Vega", cargo: "Dibujante Técnico", perfil: "Administrador", correo: "n.espinoza@profesor.duoc.cl", nacimiento: "1989-09-04", estado: "Inactivo", ingreso: "2022-03-01", egreso: "2024-06-30" },
         { nombre: "Valentina Donoso Silva", cargo: "Vendedora Salón", perfil: "Vendedor", correo: "v.donoso@duoc.cl", nacimiento: "1996-03-22", estado: "Activo", ingreso: "2024-03-10", egreso: "-" },
         { nombre: "Tomás Sanhueza Godoy", cargo: "Ejecutivo de Ventas", perfil: "Vendedor", correo: "t.sanhueza@gmail.com", nacimiento: "1990-10-08", estado: "Activo", ingreso: "2023-07-01", egreso: "-" },
         { nombre: "Paula Sepúlveda Tapia", cargo: "Vendedora de Mesón", perfil: "Vendedor", correo: "p.sepulveda@duoc.cl", nacimiento: "1993-05-17", estado: "Activo", ingreso: "2024-01-20", egreso: "-" },
@@ -91,9 +91,8 @@ function aplicarPermisosMenu() {
 
     const permisos = {
         'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
-        'Supervisor':    ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
-        'Operativo':     ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
         'Vendedor':      ['dashboard', 'ordenes', 'productos', 'clientes'],
+        'Operativo':     ['ordenes'],
         'Usuario':       ['ordenes']
     };
 
