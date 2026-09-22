@@ -4,7 +4,7 @@
 // Objeto que agrupa a los empleados por número de página (8 empleados por página)
 const usuariosPorPagina = {
     1: [
-        { nombre: "Víctor Carvallo", cargo: "Administrador General", perfil: "Administrador", correo: "vi.carvallo@duocuc.cl", nacimiento: "1980-05-14", estado: "Activo", ingreso: "2020-01-15", egreso: "-" },
+        { nombre: "Víctor Carvallo", cargo: "Administrador General", perfil: "Administrador", correo: "vi.carvallo@duoc.cl", nacimiento: "1980-05-14", estado: "Activo", ingreso: "2020-01-15", egreso: "-" },
         { nombre: "Ana María Rojas", cargo: "Arquitecta de Obra", perfil: "Vendedor", correo: "a.rojas@duoc.cl", nacimiento: "1990-08-23", estado: "Activo", ingreso: "2023-01-10", egreso: "-" },
         { nombre: "Patricia Silva Castro", cargo: "Prevencionista de Riesgos", perfil: "Vendedor", correo: "p.silva@profesor.duoc.cl", nacimiento: "1988-03-19", estado: "Activo", ingreso: "2023-08-20", egreso: "-" },
         { nombre: "Matías Vera Muñoz", cargo: "Ejecutivo de Ventas", perfil: "Vendedor", correo: "m.vera@gmail.com", nacimiento: "1993-02-11", estado: "Activo", ingreso: "2024-01-15", egreso: "-" },
