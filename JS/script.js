@@ -53,7 +53,7 @@ if (imagenActual && imagenNueva) {
 }
 
 
-let formularioContacto = document.getElementById("formContacto");
+let formularioContacto = document.getElementById("formulario");
 
 if (formularioContacto) {
 
