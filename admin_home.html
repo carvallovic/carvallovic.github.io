@@ -126,49 +126,6 @@
 
     </div>
 
-    <!-- POP-UP 1: PERFIL DE USUARIO -->
-    <div id="modalPerfil" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span>DATOS DEL PERFIL</span>
-                <span style="cursor: pointer;" onclick="cerrarModal('modalPerfil')">✕</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-info-item">
-                    <strong>Nombre:</strong>
-                    <span id="perfilNombre">Gonzalo Morales Ruiz</span>
-                </div>
-                <div class="modal-info-item">
-                    <strong>Cargo:</strong>
-                    <span id="perfilCargo">Administrador de Sistema</span>
-                </div>
-                <div class="modal-info-item">
-                    <strong>Perfil / Rol:</strong>
-                    <span id="perfilRol">Administrador</span>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-cancelar" onclick="cerrarModal('modalPerfil')">CANCELAR</button>
-                <button type="button" class="btn-registrar" style="background-color: #bb2d3b; border-color: #bb2d3b;" onclick="abrirConfirmacionLogout()">CERRAR SESIÓN</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- POP-UP 2: CONFIRMACIÓN CERRAR SESIÓN -->
-    <div id="modalConfirmarLogout" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span>CONFIRMAR ACCIÓN</span>
-            </div>
-            <div class="modal-body">
-                <p style="margin: 10px 0; font-weight: bold; text-align: center;">¿De verdad quieres cerrar sesión?</p>
-            </div>
-            <div class="modal-footer" style="justify-content: center;">
-                <button type="button" class="btn-cancelar" onclick="cerrarModal('modalConfirmarLogout')">NO</button>
-                <button type="button" class="btn-registrar" onclick="confirmarCerrarSesion()">SÍ</button>
-            </div>
-        </div>
-    </div>
 
     <!-- LÓGICA JAVASCRIPT -->
     <script src="JS/JSADMIN.js"></script>

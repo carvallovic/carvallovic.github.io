@@ -533,11 +533,11 @@ function inyectarModales() {
                     <span id="perfilNombre">-</span>
                 </div>
                 <div class="modal-info-item">
-                    <strong>Cargo:</strong>
+                    <strong id="labelCargoTipo">Cargo:</strong>
                     <span id="perfilCargo">-</span>
                 </div>
                 <div class="modal-info-item">
-                    <strong>Perfil / Rol:</strong>
+                    <strong>Perfil:</strong>
                     <span id="perfilRol">-</span>
                 </div>
             </div>
@@ -579,6 +579,16 @@ function abrirModalPerfil() {
     const elNombre = document.getElementById('perfilNombre');
     const elCargo = document.getElementById('perfilCargo');
     const elRol = document.getElementById('perfilRol');
+    const labelCargoTipo = document.getElementById('labelCargoTipo');
+
+    // Modificación dinámica de la etiqueta según el Perfil
+    if (labelCargoTipo) {
+        if (perfil === 'Usuario') {
+            labelCargoTipo.innerText = 'Tipo cliente:';
+        } else {
+            labelCargoTipo.innerText = 'Cargo:';
+        }
+    }
 
     if (elNombre) elNombre.innerText = nombre;
     if (elCargo) elCargo.innerText = cargo;
@@ -605,7 +615,7 @@ function confirmarCerrarSesion() {
 }
 
 // ==========================================================================
-// 10. INICIALIZACIÓN DE EVENTOS AL Cargar EL DOM
+// 10. INICIALIZACIÓN DE EVENTOS AL CARGAR EL DOM
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
     aplicarPermisosMenu();
@@ -799,11 +809,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-});
 
-// ==========================================================================
     // CARGA DE DATOS EN EDITAR CLIENTE
-    // ==========================================================================
     const formEditarCliente = document.getElementById('formEditarCliente');
     if (formEditarCliente) {
         const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
@@ -817,7 +824,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('correo')) document.getElementById('correo').value = cliente.correo || '';
             if (document.getElementById('fechaNacimiento')) document.getElementById('fechaNacimiento').value = cliente.nacimiento || '';
 
-            // Se elimina el registro temporal tras ser cargado
             sessionStorage.removeItem('clienteAEditar');
         }
 
@@ -849,9 +855,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ==========================================================================
     // CARGA DE DATOS EN EDITAR EMPLEADO
-    // ==========================================================================
     const formEditarEmpleado = document.getElementById('formEditarEmpleado');
     if (formEditarEmpleado) {
         const datosEmpleadoGuardados = sessionStorage.getItem('empleadoAEditar');
@@ -866,7 +870,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('correo')) document.getElementById('correo').value = empleado.correo || '';
             if (document.getElementById('fechaNacimiento')) document.getElementById('fechaNacimiento').value = empleado.nacimiento || '';
 
-            // Se elimina el registro temporal tras ser cargado
             sessionStorage.removeItem('empleadoAEditar');
         }
 
@@ -897,3 +900,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+});
