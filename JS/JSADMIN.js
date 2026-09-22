@@ -1,6 +1,7 @@
 // ==========================================================================
-// 1. DATOS DE USUARIOS / PERSONAL (CON CORREO Y PERFIL)
+// 1. DATOS DE USUARIOS / PERSONAL (Simulación de Base de Datos Paginada)
 // ==========================================================================
+// Objeto que agrupa a los empleados por número de página (8 empleados por página)
 const usuariosPorPagina = {
     1: [
         { nombre: "Víctor Carvallo", cargo: "Administrador General", perfil: "Administrador", correo: "v.carvallo@profesor.duoc.cl", nacimiento: "1980-05-14", estado: "Activo", ingreso: "2020-01-15", egreso: "-" },
@@ -37,6 +38,7 @@ const usuariosPorPagina = {
 // ==========================================================================
 // 2. DATOS DE CLIENTES
 // ==========================================================================
+// Objeto que agrupa a los clientes por página
 const clientesPorPagina = {
     1: [
         { nombre: "Gonzalo Morales Ruiz", cargo: "Particular", perfil: "Usuario", correo: "g.morales@gmail.com", nacimiento: "1988-06-15", estado: "Activo", ingreso: "2023-02-10", egreso: "-" },
@@ -68,6 +70,7 @@ const clientesPorPagina = {
 // ==========================================================================
 // 3. DATOS DE PRODUCTOS Y SERVICIOS
 // ==========================================================================
+// Objeto que agrupa el catálogo de servicios por página
 const productosPorPagina = {
     1: [
         { nombre: "Construcción y ampliaciones", precioDesde: "$500.000", precioHasta: "$2.500.000", estado: "Activo", fechaAlta: "2024-01-15", fechaModificacion: "2026-02-10" },
@@ -77,18 +80,26 @@ const productosPorPagina = {
     ]
 };
 
-// Variables globales
-let paginaActual = 1;
-let empleadoSeleccionado = null;
-let clienteSeleccionado = null;
-let productoSeleccionado = null;
+// ==========================================================================
+// VARIABLES GLOBALES DE ESTADO
+// ==========================================================================
+let paginaActual = 1;            // Almacena el número de página activo para la paginación
+let empleadoSeleccionado = null; // Guarda el objeto del empleado haciendo clic en la tabla
+let clienteSeleccionado = null;  // Guarda el objeto del cliente seleccionado
+let productoSeleccionado = null; // Guarda el objeto del producto seleccionado
 
 // ==========================================================================
 // 4. LÓGICA DE CONTROL DE ACCESO Y MENÚS SEGÚN PERFIL
 // ==========================================================================
+/**
+ * Oculta o muestra opciones del menú lateral según el perfil guardado en sesión
+ * y redirige a los usuarios si intentan ingresar a una página sin permisos.
+ */
 function aplicarPermisosMenu() {
+    // Obtiene el perfil del usuario activo (si no hay ninguno, asume 'Administrador')
     const perfil = sessionStorage.getItem('perfilLogueado') || 'Administrador';
 
+    // Diccionario de permisos: qué menú puede ver cada rol
     const permisos = {
         'Administrador': ['dashboard', 'ordenes', 'productos', 'reportes', 'personal', 'clientes'],
         'Vendedor':      ['dashboard', 'ordenes', 'productos', 'clientes'],
@@ -96,18 +107,21 @@ function aplicarPermisosMenu() {
         'Usuario':       ['ordenes']
     };
 
+    // Obtiene la lista de accesos permitidos para el perfil actual
     const menusPermitidos = permisos[perfil] || permisos['Administrador'];
 
+    // Filtra los elementos del menú en el DOM
     const itemsMenu = document.querySelectorAll('.menu-grupo a[data-menu]');
     itemsMenu.forEach(item => {
         const idMenu = item.getAttribute('data-menu');
         if (menusPermitidos.includes(idMenu)) {
-            item.style.display = 'flex';
+            item.style.display = 'flex'; // Muestra la opción
         } else {
-            item.style.display = 'none';
+            item.style.display = 'none'; // Oculta la opción prohibida
         }
     });
 
+    // Control de acceso por URL: redirige si el usuario está en una página no autorizada
     const paginaActualArchivo = window.location.pathname.split('/').pop() || 'admin_home.html';
     const mapaPaginaMenu = {
         'admin_home.html': 'dashboard',
@@ -125,6 +139,7 @@ function aplicarPermisosMenu() {
 
     const requerimientoMenu = mapaPaginaMenu[paginaActualArchivo];
     if (requerimientoMenu && !menusPermitidos.includes(requerimientoMenu)) {
+        // Redirección forzada según su perfil si intenta acceder escribiendo la URL
         if (menusPermitidos.includes('ordenes')) {
             window.location.href = 'ordenes.html';
         } else if (menusPermitidos.includes('dashboard')) {
@@ -136,6 +151,11 @@ function aplicarPermisosMenu() {
 // ==========================================================================
 // 5. BÚSQUEDA Y VALIDACIÓN DE USUARIOS
 // ==========================================================================
+/**
+ * Valida si un e-mail pertenece a uno de los dominios permitidos por la empresa
+ * @param {string} correo - Dirección de correo a verificar
+ * @returns {boolean} true si es válido, false en caso contrario
+ */
 function validarCorreoDominio(correo) {
     if (!correo) return false;
     const correoLimpio = correo.trim().toLowerCase();
@@ -143,15 +163,22 @@ function validarCorreoDominio(correo) {
     return dominiosPermitidos.some(dominio => correoLimpio.endsWith(dominio));
 }
 
+/**
+ * Busca un usuario o cliente en las listas globales usando su dirección de correo
+ * @param {string} correo - Correo del usuario
+ * @returns {Object|null} Objeto del usuario si lo encuentra, o null
+ */
 function buscarUsuarioPorCorreo(correo) {
     if (!correo) return null;
     const correoLimpio = correo.trim().toLowerCase();
 
+    // Busca dentro de los usuarios (Personal)
     for (const p in usuariosPorPagina) {
         const u = usuariosPorPagina[p].find(item => item.correo.trim().toLowerCase() === correoLimpio);
         if (u) return u;
     }
 
+    // Busca dentro de la lista de clientes
     for (const p in clientesPorPagina) {
         const c = clientesPorPagina[p].find(item => item.correo.trim().toLowerCase() === correoLimpio);
         if (c) return c;
@@ -160,6 +187,11 @@ function buscarUsuarioPorCorreo(correo) {
     return null;
 }
 
+/**
+ * Busca un usuario o cliente en las listas globales usando su nombre completo
+ * @param {string} nombre - Nombre del usuario a buscar
+ * @returns {Object|null} Objeto encontrado o null
+ */
 function buscarUsuarioPorNombre(nombre) {
     if (!nombre) return null;
     const nombreLimpio = nombre.trim().toLowerCase();
@@ -180,6 +212,9 @@ function buscarUsuarioPorNombre(nombre) {
 // ==========================================================================
 // 6. RENDERIZADO DEL DASHBOARD INICIO
 // ==========================================================================
+/**
+ * Carga completa de la pantalla de inicio del administrador
+ */
 function renderizarInicioAdmin() {
     renderizarSaludoUsuario();
     renderizarUltimosClientes();
@@ -187,6 +222,9 @@ function renderizarInicioAdmin() {
     aplicarPermisosMenu();
 }
 
+/**
+ * Muestra el nombre del usuario logueado en el encabezado
+ */
 function renderizarSaludoUsuario() {
     const elSaludo = document.getElementById('saludoUsuario') || document.querySelector('.header-left h2');
     if (!elSaludo) return;
@@ -197,6 +235,9 @@ function renderizarSaludoUsuario() {
     }
 }
 
+/**
+ * Carga los primeros 5 clientes en la tabla de vista rápida del Dashboard
+ */
 function renderizarUltimosClientes() {
     const tbody = document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio');
     if (!tbody) return;
@@ -204,6 +245,7 @@ function renderizarUltimosClientes() {
     const lista = clientesPorPagina[1] || [];
     tbody.innerHTML = '';
 
+    // Muestra solo los primeros 5 registros
     lista.slice(0, 5).forEach(client => {
         const tr = document.createElement('tr');
         const claseEstado = client.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo';
@@ -222,6 +264,9 @@ function renderizarUltimosClientes() {
     });
 }
 
+/**
+ * Carga los productos en la tabla de vista rápida del Dashboard
+ */
 function renderizarUltimosProductos() {
     const tbody = document.getElementById('tablaProductosInicio');
     if (!tbody) return;
@@ -248,16 +293,26 @@ function renderizarUltimosProductos() {
 // ==========================================================================
 // 7. ROUTING Y TABLAS DE MANTENEDORES
 // ==========================================================================
+/**
+ * Comprueba si la página cargada corresponde al mantenedor de Clientes
+ */
 function esPaginaClientes() {
     const tituloHeader = document.querySelector('.header-left h2')?.innerText || '';
     return window.location.pathname.includes('clientes.html') || tituloHeader.includes('Clientes');
 }
 
+/**
+ * Comprueba si la página cargada corresponde al mantenedor de Productos
+ */
 function esPaginaProductos() {
     const tituloHeader = document.querySelector('.header-left h2')?.innerText || '';
     return window.location.pathname.includes('productos.html') || tituloHeader.includes('Productos');
 }
 
+/**
+ * Renderiza dinámicamente la tabla que corresponda según la URL actual
+ * @param {number} pagina - Número de página a cargar
+ */
 function renderizarTabla(pagina) {
     if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
@@ -273,11 +328,17 @@ function renderizarTabla(pagina) {
     }
 }
 
+// --------------------------------------------------------------------------
+// MANTENEDOR DE USUARIOS / EMPLEADOS
+// --------------------------------------------------------------------------
+/**
+ * Dibuja las filas de la tabla de empleados para una página determinada
+ */
 function renderizarTablaUsuarios(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
 
-    deseleccionarEmpleado();
+    deseleccionarEmpleado(); // Limpia selecciones previas
 
     const lista = usuariosPorPagina[pagina] || [];
     tbody.innerHTML = '';
@@ -297,6 +358,7 @@ function renderizarTablaUsuarios(pagina) {
             <td>${user.egreso}</td>
         `;
 
+        // Evento para seleccionar la fila al hacer clic
         tr.addEventListener('click', function() {
             seleccionarFila(tr, user);
         });
@@ -307,15 +369,20 @@ function renderizarTablaUsuarios(pagina) {
     actualizarBotonesPaginacion(pagina);
 }
 
+/**
+ * Resalta la fila de empleado seleccionada y muestra el botón Editar
+ */
 function seleccionarFila(tr, user) {
     const btnEditar = document.getElementById('btnEditar');
     const filas = document.querySelectorAll('#tablaCuerpo tr');
 
+    // Si la fila ya estaba seleccionada, la deselecciona
     if (tr.classList.contains('fila-seleccionada')) {
         deseleccionarEmpleado();
         return;
     }
 
+    // Remueve la selección visual de las demás filas
     filas.forEach(f => f.classList.remove('fila-seleccionada'));
 
     tr.classList.add('fila-seleccionada');
@@ -326,6 +393,9 @@ function seleccionarFila(tr, user) {
     }
 }
 
+/**
+ * Quita la selección visual y oculta el botón Editar
+ */
 function deseleccionarEmpleado() {
     empleadoSeleccionado = null;
     const btnEditar = document.getElementById('btnEditar');
@@ -336,6 +406,9 @@ function deseleccionarEmpleado() {
     filas.forEach(f => f.classList.remove('fila-seleccionada'));
 }
 
+/**
+ * Guarda los datos del empleado activo en sesión y redirige al formulario de edición
+ */
 function editarEmpleado() {
     if (empleadoSeleccionado) {
         sessionStorage.setItem('empleadoAEditar', JSON.stringify(empleadoSeleccionado));
@@ -343,6 +416,12 @@ function editarEmpleado() {
     }
 }
 
+// --------------------------------------------------------------------------
+// MANTENEDOR DE CLIENTES
+// --------------------------------------------------------------------------
+/**
+ * Dibuja las filas de la tabla de clientes
+ */
 function renderizarTablaClientes(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
@@ -413,6 +492,12 @@ function editarCliente() {
     }
 }
 
+// --------------------------------------------------------------------------
+// MANTENEDOR DE PRODUCTOS
+// --------------------------------------------------------------------------
+/**
+ * Dibuja las filas de la tabla de productos/servicios
+ */
 function renderizarTablaProductos(pagina) {
     const tbody = document.getElementById('tablaCuerpo');
     if (!tbody) return;
@@ -482,8 +567,11 @@ function editarProducto() {
 }
 
 // ==========================================================================
-// 8. PAGINACIÓN
+// 8. CONTROLES DE PAGINACIÓN
 // ==========================================================================
+/**
+ * Cambia el estado 'activo' del botón numérico de paginación
+ */
 function actualizarBotonesPaginacion(pagina) {
     const botones = document.querySelectorAll('.btn-num');
     botones.forEach(btn => {
@@ -494,6 +582,10 @@ function actualizarBotonesPaginacion(pagina) {
     });
 }
 
+/**
+ * Controla el avance, retroceso o salto directo a un número de página
+ * @param {string|number} target - Puede ser 'prev', 'next' o el número de página
+ */
 function cambiarPagina(target) {
     let totalPaginas = 3;
     if (esPaginaProductos()) {
@@ -516,7 +608,11 @@ function cambiarPagina(target) {
 // ==========================================================================
 // 9. LÓGICA Y ESTRUCTURA DE MODALES (PERFIL Y CERRAR SESIÓN)
 // ==========================================================================
+/**
+ * Construye e inyecta dinámicamente el HTML de las ventanas modales en el body
+ */
 function inyectarModales() {
+    // Si ya fueron inyectados en la página, no hace nada
     if (document.getElementById('modalPerfil')) return;
 
     const htmlModales = `
@@ -566,6 +662,9 @@ function inyectarModales() {
     document.body.insertAdjacentHTML('beforeend', htmlModales);
 }
 
+/**
+ * Llena con información real los campos de la ventana modal y la despliega
+ */
 function abrirModalPerfil() {
     inyectarModales();
 
@@ -580,7 +679,7 @@ function abrirModalPerfil() {
     const elRol = document.getElementById('perfilRol');
     const labelCargoTipo = document.getElementById('labelCargoTipo');
 
-    // Modificación dinámica de la etiqueta según el Perfil
+    // Cambia la etiqueta dinámicamente si es Cliente o Personal
     if (labelCargoTipo) {
         if (perfil === 'Usuario') {
             labelCargoTipo.innerText = 'Tipo cliente:';
@@ -597,17 +696,27 @@ function abrirModalPerfil() {
     if (modal) modal.classList.add('activo');
 }
 
+/**
+ * Oculta la ventana modal especificada
+ * @param {string} idModal - ID del elemento modal
+ */
 function cerrarModal(idModal) {
     const modal = document.getElementById(idModal);
     if (modal) modal.classList.remove('activo');
 }
 
+/**
+ * Pasa de la ventana de perfil a la ventana de confirmación de salida
+ */
 function abrirConfirmacionLogout() {
     cerrarModal('modalPerfil');
     const modal = document.getElementById('modalConfirmarLogout');
     if (modal) modal.classList.add('activo');
 }
 
+/**
+ * Borra la sesión y envía a la pantalla de desconexión
+ */
 function confirmarCerrarSesion() {
     sessionStorage.clear();
     window.location.href = 'cerrando_sesion.html';
@@ -617,10 +726,11 @@ function confirmarCerrarSesion() {
 // 10. INICIALIZACIÓN DE EVENTOS AL CARGAR EL DOM
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
+    // 1. Aplica permisos e inyecta estructuras modales
     aplicarPermisosMenu();
     inyectarModales();
 
-    // Enlazar evento click al botón de Perfil en el Sidebar Footer
+    // 2. Asigna evento al botón de 'Perfil' en el pie del Sidebar
     const itemsPerfil = document.querySelectorAll('.sidebar-footer a, a[href="#profile"]');
     itemsPerfil.forEach(btn => {
         btn.addEventListener('click', function (e) {
@@ -629,34 +739,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // 3. Renderiza dashboard si se encuentra en la pantalla de inicio
     if (document.getElementById('tablaClientesInicio') || document.getElementById('tablaUsuariosInicio') || document.getElementById('tablaProductosInicio')) {
         renderizarInicioAdmin();
     }
 
-    // LOGIN
+    // ----------------------------------------------------------------------
+    // MANEJO DE INICIO DE SESIÓN (LOGIN)
+    // ----------------------------------------------------------------------
     const formLogin = document.getElementById('formLogin') || document.querySelector('.login-form');
     if (formLogin) {
         formLogin.addEventListener('submit', function (event) {
-            event.preventDefault();
+            event.preventDefault(); // Detiene el envío HTTP predeterminado
 
             const correoInput = document.getElementById('correo')?.value;
             const contrasenaInput = document.getElementById('contrasena')?.value;
 
             const usuarioEncontrado = buscarUsuarioPorCorreo(correoInput);
 
+            // Validaciones de ingreso
             if (!usuarioEncontrado) {
                 alert('El correo electrónico ingresado no se encuentra registrado.');
                 return;
             }
 
-            if (contrasenaInput !== '123456') {
+            if (contrasenaInput !== '123456') { // Contraseña universal de pruebas
                 alert('Contraseña incorrecta. Intenta Nuevamente.');
                 return;
             }
 
+            // Almacenamiento en variables de sesión del navegador
             sessionStorage.setItem('usuarioLogueado', usuarioEncontrado.nombre);
             sessionStorage.setItem('perfilLogueado', usuarioEncontrado.perfil);
 
+            // Redirección por perfil
             if (usuarioEncontrado.perfil === 'Usuario') {
                 window.location.href = 'ordenes.html';
             } else {
@@ -665,9 +781,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // FORMULARIO DE EMPLEADOS
+    // ----------------------------------------------------------------------
+    // MANEJO DE FORMULARIO DE REGISTRO / EDICIÓN DE EMPLEADOS
+    // ----------------------------------------------------------------------
     const formNuevoUsuario = document.getElementById('formNuevoUsuario');
     if (formNuevoUsuario) {
+        // Carga de datos si viene en modo EDICIÓN
         const datosEmpleadoGuardados = sessionStorage.getItem('empleadoAEditar');
 
         if (datosEmpleadoGuardados) {
@@ -691,9 +810,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('region')) document.getElementById('region').value = 'rm';
             if (document.getElementById('comuna')) document.getElementById('comuna').value = 'linares';
 
-            sessionStorage.removeItem('empleadoAEditar');
+            sessionStorage.removeItem('empleadoAEditar'); // Limpia los datos una vez cargados
         }
 
+        // Validación y guardado al enviar el formulario
         formNuevoUsuario.addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -723,7 +843,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // FORMULARIO DE CLIENTES
+    // ----------------------------------------------------------------------
+    // MANEJO DE FORMULARIO DE REGISTRO DE CLIENTES
+    // ----------------------------------------------------------------------
     const formNuevoCliente = document.getElementById('formNuevoCliente');
     if (formNuevoCliente) {
         const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
@@ -776,7 +898,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // FORMULARIO DE PRODUCTOS
+    // ----------------------------------------------------------------------
+    // MANEJO DE FORMULARIO DE PRODUCTOS
+    // ----------------------------------------------------------------------
     const formEditarProducto = document.getElementById('formEditarProducto');
     if (formEditarProducto) {
         const datosProductoGuardados = sessionStorage.getItem('productoAEditar');
@@ -809,7 +933,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // CARGA DE DATOS EN EDITAR CLIENTE
+    // ----------------------------------------------------------------------
+    // CARGA Y GUARDADO EN FORMULARIO EDITAR CLIENTE
+    // ----------------------------------------------------------------------
     const formEditarCliente = document.getElementById('formEditarCliente');
     if (formEditarCliente) {
         const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
@@ -854,7 +980,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // CARGA DE DATOS EN EDITAR EMPLEADO
+    // ----------------------------------------------------------------------
+    // CARGA Y GUARDADO EN FORMULARIO EDITAR EMPLEADO
+    // ----------------------------------------------------------------------
     const formEditarEmpleado = document.getElementById('formEditarEmpleado');
     if (formEditarEmpleado) {
         const datosEmpleadoGuardados = sessionStorage.getItem('empleadoAEditar');
