@@ -70,70 +70,94 @@
             <div class="card-registro">
                 <div class="banner-registro">Ingreso de datos de Empleado</div>
 
-                <!-- Alerta opcional de éxito -->
-                <div class="alerta-exito" id="alertaExito">
+                <!-- Alerta de éxito -->
+                <div class="alerta-exito" id="mensajeExito" style="display: none;">
                     ¡Empleado registrado con éxito!
                 </div>
 
-                <form action="#" method="POST">
+                <form id="formNuevoUsuario">
                     <div class="form-grupo">
                         <label>NOMBRE COMPLETO</label>
-                        <input type="text" placeholder="Ej: Gonzalo Morales Ruiz" required>
+                        <input type="text" id="nombre" placeholder="Ej: Gonzalo Morales Ruiz" required>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
                             <label>RUT</label>
-                            <input type="text" placeholder="12.345.678-9" required>
+                            <input type="text" id="rut" placeholder="12.345.678-9" required>
                         </div>
                         <div class="form-grupo">
                             <label>CARGO / PUESTO</label>
-                            <input type="text" placeholder="Ej: Administrador, Soporte">
+                            <input type="text" id="cargo" placeholder="Ej: Administrador, Soporte" required>
                         </div>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
-                            <label>PERFIL / ROL</label>
-                            <select name="perfil">
-                                <option value="Usuario">Usuario</option>
-                                <option value="Usuario">Supervisor</option>
-                                <option value="Usuario">Vendedor</option>
-                                <option value="Admin" selected>Administrador</option>
-                            </select>
+                            <label>FECHA DE NACIMIENTO</label>
+                            <input type="date" id="fechaNacimiento" required>
                         </div>
                         <div class="form-grupo">
+                            <label>PERFIL / ROL</label>
+                            <select id="perfil" name="perfil">
+                                <option value="user">Usuario</option>
+                                <option value="sup">Supervisor</option>
+                                <option value="vend">Vendedor</option>
+                                <option value="admin" selected>Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid-selects">
+                        <div class="form-grupo">
                             <label>ESTADO INICIAL</label>
-                            <select name="estado">
+                            <select id="estado" name="estado">
                                 <option value="activo">Activo</option>
                                 <option value="inactivo">Inactivo</option>
                             </select>
                         </div>
+                        <div class="form-grupo">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input type="email" id="correo" placeholder="empleado@duoc.cl" required>
+                        </div>
                     </div>
 
-                    <div class="form-grupo">
-                        <label>CORREO ELECTRÓNICO</label>
-                        <input type="email" placeholder="empleado@empresa.com" required>
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label>TELÉFONO DE CONTACTO</label>
+                            <input type="text" id="telefono" placeholder="+56 9 1234 5678">
+                        </div>
+                        <div class="form-grupo">
+                            <label>DIRECCIÓN</label>
+                            <input type="text" id="direccion" placeholder="Calle, número">
+                        </div>
                     </div>
 
-                    <div class="form-grupo">
-                        <label>TELÉFONO DE CONTACTO</label>
-                        <input type="text" placeholder="+56 9 1234 5678">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label>DIRECCIÓN</label>
-                        <input type="text" placeholder="Calle, número, comuna">
+                    <div class="grid-selects">
+                        <div class="form-grupo">
+                            <label>REGIÓN</label>
+                            <select name="region">
+                                <option value="">-- Seleccione Región --</option>
+                                <option value="rm">Región Metropolitana</option>
+                            </select>
+                        </div>
+                        <div class="form-grupo">
+                            <label>COMUNA</label>
+                            <select name="comuna">
+                                <option value="">-- Seleccione Comuna --</option>
+                                <option value="santiago">Santiago</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
                             <label>CONTRASEÑA</label>
-                            <input type="password" required>
+                            <input type="password" id="contrasena" required>
                         </div>
                         <div class="form-grupo">
                             <label>CONFIRMAR CONTRASEÑA</label>
-                            <input type="password" required>
+                            <input type="password" id="confirmarContrasena" required>
                         </div>
                     </div>
 
