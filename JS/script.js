@@ -1,8 +1,8 @@
 let imagenes = [
-    "img/construccion.png",
-    "img/tabiqueria.png",
-    "img/ceramica.png",
-    "img/mantenciones.png"
+    "img/Construccion.png",
+    "img/Tabiqueria.png",
+    "img/Ceramica.png",
+    "img/Mantenciones.png"
 ];
 
 let nombresServicios = [
@@ -579,7 +579,7 @@ let serviciosDetalle = {
 
     construccion: {
         nombre: "Construcción y ampliaciones",
-        imagen: "img/construccion.png",
+        imagen: "img/Construccion.png",
         descripcion: "Realizamos proyectos de construcción y ampliación para viviendas, adaptándonos a las necesidades de cada cliente y aprovechando de mejor manera los espacios disponibles.",
         incluye: "Ampliaciones de viviendas, construcción de nuevos espacios, remodelaciones y adaptación de espacios existentes.",
         proceso: "Evaluación del proyecto, planificación de los trabajos, ejecución de la obra y revisión de las terminaciones.",
@@ -588,7 +588,7 @@ let serviciosDetalle = {
 
     tabiqueria: {
         nombre: "Tabiquería",
-        imagen: "img/tabiqueria.png",
+        imagen: "img/Tabiqueria.png",
         descripcion: "Realizamos trabajos de tabiquería para dividir, organizar y renovar los espacios interiores del hogar.",
         incluye: "Instalación de estructuras, división de ambientes y habilitación de nuevos espacios interiores.",
         proceso: "Evaluación del espacio, definición de la distribución, instalación de la estructura y terminaciones.",
@@ -597,7 +597,7 @@ let serviciosDetalle = {
 
     ceramicas: {
         nombre: "Instalación de cerámicas",
-        imagen: "img/ceramica.png",
+        imagen: "img/Ceramica.png",
         descripcion: "Realizamos instalación de cerámicas en pisos y muros para renovar y mejorar distintos espacios del hogar.",
         incluye: "Preparación de superficies, instalación de cerámicas y terminaciones.",
         proceso: "Revisión de la superficie, preparación, instalación de las cerámicas y revisión final.",
@@ -606,7 +606,7 @@ let serviciosDetalle = {
 
     mantenciones: {
         nombre: "Mantenciones del hogar",
-        imagen: "img/mantenciones.png",
+        imagen: "img/Mantenciones.png",
         descripcion: "Realizamos trabajos de mantención y reparación para conservar tu vivienda en buenas condiciones y prevenir problemas mayores.",
         incluye: "Reparaciones, mantenimiento general y trabajos de conservación de diferentes espacios del hogar.",
         proceso: "Evaluación del problema, definición del trabajo necesario, ejecución y revisión final.",
