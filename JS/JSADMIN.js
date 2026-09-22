@@ -800,3 +800,100 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// ==========================================================================
+    // CARGA DE DATOS EN EDITAR CLIENTE
+    // ==========================================================================
+    const formEditarCliente = document.getElementById('formEditarCliente');
+    if (formEditarCliente) {
+        const datosClienteGuardados = sessionStorage.getItem('clienteAEditar');
+
+        if (datosClienteGuardados) {
+            const cliente = JSON.parse(datosClienteGuardados);
+
+            if (document.getElementById('nombre')) document.getElementById('nombre').value = cliente.nombre || '';
+            if (document.getElementById('tipo')) document.getElementById('tipo').value = cliente.cargo || '';
+            if (document.getElementById('perfil')) document.getElementById('perfil').value = cliente.perfil || 'Usuario';
+            if (document.getElementById('correo')) document.getElementById('correo').value = cliente.correo || '';
+            if (document.getElementById('fechaNacimiento')) document.getElementById('fechaNacimiento').value = cliente.nacimiento || '';
+
+            // Se elimina el registro temporal tras ser cargado
+            sessionStorage.removeItem('clienteAEditar');
+        }
+
+        formEditarCliente.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const correo = document.getElementById('correo')?.value;
+            if (!validarCorreoDominio(correo)) {
+                alert('El correo electrónico debe terminar en @duoc.cl, @profesor.duoc.cl o @gmail.com');
+                return;
+            }
+
+            const pass1 = document.getElementById('contrasena')?.value;
+            const pass2 = document.getElementById('confirmarContrasena')?.value;
+
+            if (pass1 || pass2) {
+                if (pass1 !== pass2) {
+                    alert('Las contraseñas no coinciden. Por favor, verifíquelas.');
+                    return;
+                }
+            }
+
+            const alerta = document.getElementById('alertaExito');
+            if (alerta) {
+                alerta.style.display = 'block';
+                alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { alerta.style.display = 'none'; }, 4000);
+            }
+        });
+    }
+
+    // ==========================================================================
+    // CARGA DE DATOS EN EDITAR EMPLEADO
+    // ==========================================================================
+    const formEditarEmpleado = document.getElementById('formEditarEmpleado');
+    if (formEditarEmpleado) {
+        const datosEmpleadoGuardados = sessionStorage.getItem('empleadoAEditar');
+
+        if (datosEmpleadoGuardados) {
+            const empleado = JSON.parse(datosEmpleadoGuardados);
+
+            if (document.getElementById('nombre')) document.getElementById('nombre').value = empleado.nombre || '';
+            if (document.getElementById('cargo')) document.getElementById('cargo').value = empleado.cargo || '';
+            if (document.getElementById('perfil')) document.getElementById('perfil').value = empleado.perfil || 'Administrador';
+            if (document.getElementById('estado')) document.getElementById('estado').value = empleado.estado || 'Activo';
+            if (document.getElementById('correo')) document.getElementById('correo').value = empleado.correo || '';
+            if (document.getElementById('fechaNacimiento')) document.getElementById('fechaNacimiento').value = empleado.nacimiento || '';
+
+            // Se elimina el registro temporal tras ser cargado
+            sessionStorage.removeItem('empleadoAEditar');
+        }
+
+        formEditarEmpleado.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const correo = document.getElementById('correo')?.value;
+            if (!validarCorreoDominio(correo)) {
+                alert('El correo electrónico debe terminar en @duoc.cl, @profesor.duoc.cl o @gmail.com');
+                return;
+            }
+
+            const pass1 = document.getElementById('contrasena')?.value;
+            const pass2 = document.getElementById('confirmarContrasena')?.value;
+
+            if (pass1 || pass2) {
+                if (pass1 !== pass2) {
+                    alert('Las contraseñas no coinciden. Por favor, verifíquelas.');
+                    return;
+                }
+            }
+
+            const alerta = document.getElementById('alertaExito');
+            if (alerta) {
+                alerta.style.display = 'block';
+                alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { alerta.style.display = 'none'; }, 4000);
+            }
+        });
+    }

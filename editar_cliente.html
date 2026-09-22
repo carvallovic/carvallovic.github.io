@@ -69,29 +69,28 @@
             <div class="card-registro">
                 <div class="banner-registro">Edición de datos de Cliente</div>
 
-                <!-- Alerta opcional de actualización -->
+                <!-- Alerta de actualización -->
                 <div class="alerta-exito" id="alertaExito">
                     ¡Datos del cliente actualizados correctamente!
                 </div>
 
-                <form action="#" method="POST">
-                    <!-- Campo ID Oculto (Recomendado para edición) -->
-                    <input type="hidden" name="id_cliente" value="001">
+                <form id="formEditarCliente" action="#" method="POST">
+                    <input type="hidden" name="id_cliente" id="id_cliente" value="001">
 
                     <div class="form-grupo">
                         <label>NOMBRE COMPLETO / RAZÓN SOCIAL</label>
-                        <input type="text" value="Gonzalo Morales Ruiz" required>
+                        <input type="text" id="nombre" required>
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
                             <label>TIPO / OCUPACIÓN</label>
-                            <input type="text" value="Particular">
+                            <input type="text" id="tipo">
                         </div>
                         <div class="form-grupo">
                             <label>PERFIL / ROL</label>
-                            <select name="perfil">
-                                <option value="Usuario" selected>Usuario</option>
+                            <select name="perfil" id="perfil">
+                                <option value="Usuario">Usuario</option>
                                 <option value="Admin">Administrador</option>
                             </select>
                         </div>
@@ -99,30 +98,30 @@
 
                     <div class="form-grupo">
                         <label>CORREO ELECTRÓNICO</label>
-                        <input type="email" value="gonzalo@correo.com" required>
+                        <input type="email" id="correo" required>
                     </div>
 
                     <div class="form-grupo">
                         <label>TELÉFONO DE CONTACTO</label>
-                        <input type="text" value="+56 9 1234 5678">
+                        <input type="text" id="telefono" value="+56 9 1234 5678">
                     </div>
 
                     <div class="form-grupo">
                         <label>DIRECCIÓN</label>
-                        <input type="text" value="Av. Providencia 1234, Depto 502">
+                        <input type="text" id="direccion" value="Av. Providencia 1234, Depto 502">
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
                             <label>REGIÓN</label>
-                            <select name="region">
+                            <select name="region" id="region">
                                 <option value="">-- Seleccione Región --</option>
                                 <option value="rm" selected>Región Metropolitana</option>
                             </select>
                         </div>
                         <div class="form-grupo">
                             <label>COMUNA</label>
-                            <select name="comuna">
+                            <select name="comuna" id="comuna">
                                 <option value="">-- Seleccione Comuna --</option>
                                 <option value="providencia" selected>Providencia</option>
                             </select>
@@ -131,17 +130,17 @@
 
                     <div class="form-grupo">
                         <label>FECHA DE NACIMIENTO</label>
-                        <input type="date" value="1990-05-15">
+                        <input type="date" id="fechaNacimiento">
                     </div>
 
                     <div class="grid-selects">
                         <div class="form-grupo">
                             <label>CONTRASEÑA (Dejar en blanco para no cambiar)</label>
-                            <input type="password" placeholder="••••••••">
+                            <input type="password" id="contrasena" placeholder="••••••••">
                         </div>
                         <div class="form-grupo">
                             <label>CONFIRMAR CONTRASEÑA</label>
-                            <input type="password" placeholder="••••••••">
+                            <input type="password" id="confirmarContrasena" placeholder="••••••••">
                         </div>
                     </div>
 
